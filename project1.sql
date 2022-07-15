@@ -1,12 +1,18 @@
 DROP TABLE IF EXISTS reimbursements
 DROP TABLE IF EXISTS employees
 
+
+
 CREATE TABLE employees(
-employee_id VARCHAR(6) UNIQUE NOT NULL PRIMARY KEY, 
+employee_id VARCHAR(6) UNIQUE NOT NULL, 
+username VARCHAR(20) PRIMARY KEY,
+password VARCHAR(20) NOT NULL,
 first_name VARCHAR(20) NOT NULL,
 last_name VARCHAR(20) NOT NULL,
-employee_type INTEGER DEFAULT 0 
+employee_type INTEGER DEFAULT 0,
+email_address VARCHAR(200) NOT NULL UNIQUE
 )
+
 
 CREATE TABLE employee_type_identifier(
 
@@ -26,10 +32,10 @@ CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_
 )
 
 
-INSERT INTO employees(employee_id, first_name, last_name, employee_type)
+INSERT INTO employees(employee_id, first_name, last_name, employee_type, username, "password", email_address  )
 VALUES
-(100001, 'Chris', 'Sullivan', 0),
-(100002, 'Martin', 'Burton', 1);
+(100001, 'Chris', 'Sullivan', 0, 'christopsullivan', 'PassWord123!', 'email1@revature.net'),
+(100002, 'Martin', 'Burton', 1, 'MartyBurt', 'PassWord123!', 'email2@revature.net');
 
 
 INSERT INTO reimbursements(employee_id, type_of_reimbursement, description)
