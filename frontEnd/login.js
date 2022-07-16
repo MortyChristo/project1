@@ -28,8 +28,8 @@ loginButton.addEventListener('click', async () => {
     console.log(res.status)
     if (res.status == 200) {
 
-        window.location.href = '/frontEnd/success.html'//change to login
-    
+        window.location.href = '/frontEnd/filter.html'
+        
     } else if (res.status == 400) {
 
         window.location.href = '/frontEnd/fail.html'//change to login

@@ -1,3 +1,4 @@
+let employeeIdInput = document.getElementById('employee-id-input');
 let usernameInput = document.getElementById('username-input');
 let passwordInput = document.getElementById('password-input');
 let firstNameInput = document.getElementById('firstname-input');
@@ -11,13 +12,14 @@ registrationSubmitButton.addEventListener('click', async () => {
     
     let res = await fetch('http://127.0.0.1:8080/register', {
           
-            'Access-Control-Allow-Origin': '*',
+            
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json'
                 
             },
             'body': JSON.stringify({
+                "employee_id":employeeIdInput.value,
                 "username": usernameInput.value,
                 "password": passwordInput.value,
                 "first_name": firstNameInput.value,
@@ -29,7 +31,7 @@ registrationSubmitButton.addEventListener('click', async () => {
     
     if (res.status == 201) {
 
-        window.location.href = '/success.html'
+        window.location.href = '/frontEnd/success.html'
     
     } else if (res.status == 400) {
         let data = await res.json();

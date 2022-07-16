@@ -28,12 +28,13 @@ class EmployeeDao:
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres",
                              password="YeMother6") as conn:
             with conn.cursor() as cur:
-                cur.execute("INSERT INTO employees VALUES (%s, %s, %s, %s, %s, %s) RETURNING *",
+                cur.execute("INSERT INTO employees VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING *",
                             (employee_obj.employee_id,
                              employee_obj.username,
                              employee_obj.employee_password,
                              employee_obj.first_name,
                              employee_obj.last_name,
+                             employee_obj.employee_type,
                              employee_obj.email_address))
 
                 user_that_was_inserted = cur.fetchone()

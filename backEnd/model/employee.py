@@ -11,6 +11,7 @@ class Employee:
     def to_dict(self):
         return {
             "employee_id": self.employee_id,
+            "employee_type": self.employee_type,
             "username": self.username,
             "employee_password": self.employee_password,
             "first_name": self.first_name,
