@@ -1,7 +1,6 @@
-import re
-from dao.employee_dao import EmployeeDao
-from exception.login_error import LoginError
-from exception.registration import RegistrationError
+from backend.dao.employee_dao import EmployeeDao
+from backend.exception.login_error import LoginError
+from backend.exception.registration import RegistrationError
 
 class EmployeeService:
     def __init__(self):

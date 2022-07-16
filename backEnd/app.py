@@ -1,5 +1,5 @@
 from flask import Flask
-from controller.employee_controller import ec
+from backend.controller.employee_controller import ec
 from flask_cors import CORS
 from flask_session import Session
 

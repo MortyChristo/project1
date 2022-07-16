@@ -1,6 +1,6 @@
 import psycopg
 
-from model.employee import Employee
+from backend.model.employee import Employee
 
 
 class EmployeeDao:

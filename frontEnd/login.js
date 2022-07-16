@@ -5,7 +5,7 @@ let registrationButton = document.getElementById('registration-btn');
 
 
 registrationButton.addEventListener('click', async () =>{
-    window.location.href = '/registration.html'
+    window.location.href = '/frontEnd/registration.html'
 });
 
 
@@ -13,8 +13,8 @@ registrationButton.addEventListener('click', async () =>{
 loginButton.addEventListener('click', async () => {
     
     let res = await fetch('http://127.0.0.1:8080/login', {
-            Access-Control-Allow-Origin : '*',
-            'credentials' : "include",
+            'Access-Control-Allow-Origin': '*',
+           
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json'
@@ -22,22 +22,17 @@ loginButton.addEventListener('click', async () => {
             'body': JSON.stringify({
                 "username": usernameLogin.value,
                 "password": passwordLogin.value,
-                
-                //connect to back end
-
 
             })
         })
-        
-    console.log(res)
-    
+    console.log(res.status)
     if (res.status == 200) {
 
-        window.location.href = '/success.html'//change to login
+        window.location.href = '/frontEnd/success.html'//change to login
     
     } else if (res.status == 400) {
 
-        window.location.href = '/fail.html'//change to login
+        window.location.href = '/frontEnd/fail.html'//change to login
 
     }
 });

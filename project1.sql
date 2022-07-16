@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS reimbursements
-DROP TABLE IF EXISTS employees
+DROP TABLE IF EXISTS reimbursements;
+DROP TABLE IF EXISTS employees;
 
 
 
@@ -9,7 +9,7 @@ username VARCHAR(20) PRIMARY KEY,
 employee_password VARCHAR(20) NOT NULL,
 first_name VARCHAR(20) NOT NULL,
 last_name VARCHAR(20) NOT NULL,
-employee_type INTEGER DEFAULT 0,
+
 email_address VARCHAR(200) NOT NULL UNIQUE
 )
 
