@@ -1,5 +1,4 @@
 import re
-
 from dao.employee_dao import EmployeeDao
 from exception.login_error import LoginError
 from exception.registration import RegistrationError
@@ -15,4 +14,14 @@ class EmployeeService:
             raise LoginError("Invalid username and/or password")
 
         return user_obj.to_dict()
+
+
+    def add_employee(self, employee_obj):
+        registration_error = RegistrationError()
+
+        # Username validation
+       ##
+        added_user_obj = self.employee_dao.add_employee(employee_obj)
+
+        return added_user_obj.to_dict()
 

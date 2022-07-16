@@ -5,6 +5,7 @@ class Employee:
         self.employee_password = employee_password
         self.first_name = first_name
         self.last_name = last_name
+        self.employee_type = 0
         self.email_address = email_address
 
     def to_dict(self):

@@ -53,3 +53,23 @@ def login():
             "message": str(e)
         }, 400
 
+@ec.route("/register", methods=['POST'])
+def register_employee():
+    request_body_dict = request.get_json()
+
+    employee_id = request_body_dict.get('employee_id')
+    username = request_body_dict.get('username')
+    password = request_body_dict.get('password')
+    first_name = request_body_dict.get('first_name')
+    last_name = request_body_dict.get('last_name')
+    email_address = request_body_dict.get('email_address')
+
+
+    try:
+        added_user = employee_service.add_employee(Employee(employee_id, username, password, first_name, last_name, email_address))
+    except RegistrationError as e:
+        return {
+            "messages": e.messages
+        }, 400
+
+    return added_user, 201
