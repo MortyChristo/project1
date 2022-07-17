@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS employees;
 
 
 CREATE TABLE employees(
-employee_id VARCHAR(6) UNIQUE NOT NULL, 
+employee_id VARCHAR(10) UNIQUE NOT NULL, 
 username VARCHAR(20) PRIMARY KEY,
 employee_password VARCHAR(20) NOT NULL,
 first_name VARCHAR(20) NOT NULL,
@@ -23,9 +23,9 @@ employee_type VARCHAR(20)
 
 
 CREATE TABLE reimbursements(
-employee_id VARCHAR(6) NOT NULL,
-status VARCHAR DEFAULT 'PENDING',
-type_of_reimbursement VARCHAR(1), 
+employee_id VARCHAR(10) NOT NULL,
+status VARCHAR,
+type_of_reimbursement VARCHAR, 
 description VARCHAR DEFAULT 'N/A',
 reimbursement_ID SERIAL PRIMARY KEY,
 CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
