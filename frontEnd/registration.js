@@ -29,7 +29,7 @@ registrationSubmitButton.addEventListener('click', async () => {
         })
     console.log(res);
     
-    if (res.status == 201) {
+    if (res.status == 200) {
 
         window.location.href = '/frontEnd/success.html'
     

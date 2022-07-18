@@ -28,9 +28,9 @@ def view_reimbursement():
 def add_reimbursement():
     request_body_dict = request.get_json()
 
-    employee_id = request_body_dict.get['employee_id']
-    type_of_reimbursement = request_body_dict.get['type_of_reimbursement']
-    description = request_body_dict.get['description']
+    employee_id = request_body_dict.get('employee_id')
+    type_of_reimbursement = request_body_dict.get('type_of_reimbursement')
+    description = request_body_dict.get('description')
     status = "Pending"
 
     try:
