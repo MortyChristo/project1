@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Reimbursement</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+   
+</head>
+
+
+
+<body>
+    <div class="container has-background-grey-dark">
+        <div class="columns is-justify-content-center">
+            <div class="column is-6 has-background-danger-light">
+                <h1 class="is-size-1 has-text-centered" style="margin-bottom: 60px">Add Registration</h1>
+              <div class="field">
+                  <div class="field">
+                    <label class="label">Type of Reimbursement</label>
+                    <div class="control" style="margin-bottom: 30px">
+                      <label class="radio">
+                        <input type="radio" name="reimbursement-type" value="A">
+                        A. Gas
+                      </label>
+                      <label class="radio" >
+                        <input type="radio" name="reimbursement-type" value="B" style="margin-left: 35px">
+                        B. Travel
+                      </label>
+                      <label class="radio">
+                        <input type="radio" checked name="reimbursement-type" value="C" style="margin-left: 35px">
+                        C. Hotel
+                        <input type="radio" checked name="reimbursement-type" value="D" style="margin-left: 35px">
+                        D. Other
+                      </label>
+                    </div>
+                </div>
+              </div>
+            
+               
+                <div class="field" style="margin-bottom: 30px">
+                    <label class="label">Amount</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="$00.00" id="amount">
+                    </div>
+                </div>
+               
+
+                <div class="field" style="margin-bottom: 30px">
+                    <label class="label">Description</label>
+                    <div class="control">
+                      <input class="input" type="text" id="username-input" style="width:max-width;">
+                    </div>
+                </div>
+
+
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="/frontEnd/add.js"></script>
+</body>
+</html>

@@ -39,12 +39,12 @@ VALUES
 (100002, 'Martin', 'Burton', 1, 'MartyBurt', 'PassWord123!', 'email2@revature.net');
 
 
-INSERT INTO reimbursements(employee_id, type_of_reimbursement, description)
+INSERT INTO reimbursements(employee_id, type_of_reimbursement, description, status)
 VALUES 
-(100001, 'd', 'The CLub'),
-(100001, 'a',''),
-(100002, 'a', ''),
-(100002, 'c','');
+(100001, 'd', 'The CLub', 'Pending'),
+(100001, 'a','', 'Pending'),
+(100002, 'a', '', 'Pending'),
+(100002, 'c','', 'Pending');
 
 
 INSERT INTO employee_type_identifier(id, employee_type)

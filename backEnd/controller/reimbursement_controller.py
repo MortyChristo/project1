@@ -10,10 +10,9 @@ rc = Blueprint('reimbursement_controller', __name__)
 
 reimbursement_service = ReimbursementService()
 
-@rc.route("/login/reimbursement", methods=['GET'])
-def view_reimbursement():
-    request_body_dict = request.get_json()
-    employee_id = request_body_dict['employee_id']
+@rc.route("/login/reimbursement/<employee_id>", methods=['GET'])
+def view_reimbursement(employee_id):
+
     try:
         return {
             "reimbursement": reimbursement_service.view_reimbursement_by_id(employee_id)

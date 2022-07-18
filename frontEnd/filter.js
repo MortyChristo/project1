@@ -31,21 +31,23 @@ function addReimbursementsToTable(reimbursement_obj){
     let reimbursemenElement = document.querySelector('#reimbursement-table');
     let row = document.createElement('tr');
     let idCell = document.createElement('td');
-    idCell.innerHTML = reimbursement_obj.employee_id;
+    idCell.innerText = reimbursement_obj.employee_id;
     
     row.append(idCell);
 }
 
 function grab() {
-    fetch(`http://127.0.0.1:8080/login/reimbursement/${idInput.value}`)
-    confirm.log(employee_id)
-    .then((res) => {
-        return res.json(); // .json() returns another promise that contains the response body converted into a JS object
-    }).then((data) => {
-        // populate the pokemon into the table
-        addReimbursementsToTable(data);
-    }).catch((err) => {
-        console.log(err)
-    });
-}
+    let res = fetch(`http://127.0.0.1:8080/login/reimbursement/${idInput.value}`)
+    console.log(res)
     
+}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
