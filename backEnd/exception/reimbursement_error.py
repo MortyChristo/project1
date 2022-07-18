@@ -1,0 +1,2 @@
+class ReimbursementError(Exception):
+    pass
