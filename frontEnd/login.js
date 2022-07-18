@@ -25,7 +25,7 @@ loginButton.addEventListener('click', async () => {
 
             })
         })
-    console.log(res.status)
+
     if (res.status == 200) {
 
         window.location.href = '/frontEnd/filter.html'
