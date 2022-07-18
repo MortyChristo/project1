@@ -16,6 +16,7 @@ loginButton.addEventListener('click', async () => {
             'Access-Control-Allow-Origin': '*',
            
             'method': 'POST',
+            'credentials':'include',
             'headers': {
                 'Content-Type': 'application/json'
             },

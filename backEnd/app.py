@@ -11,7 +11,7 @@ if __name__ == "__main__":
     app.secret_key = 'Revature'
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    CORS(app)  # Instructs our webserver to tell browsers that any origin is allowed. By origin we mean the source
+    CORS(app, supports_credentials=True)  # Instructs our webserver to tell browsers that any origin is allowed. By origin we mean the source
     # where the HTML, CSS, and JS are originating from
 
     Session(app)
