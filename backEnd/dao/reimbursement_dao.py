@@ -3,12 +3,13 @@ from backend.model.reimbursement import Reimbursements
 
 class ReimbursementDao:
     def add_reimbursement(self, reimbursement_obj):
-        print(reimbursement_obj.employee_id)
-        print(reimbursement_obj.description)
+
 
 
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
             with conn.cursor() as cur:
+
+
 
                 cur.execute("INSERT INTO reimbursements(employee_id, status, type_of_reimbursement, description)"
                 "VALUES (%s, %s, %s, %s) returning *", (reimbursement_obj.employee_id, reimbursement_obj.status,

@@ -7,7 +7,7 @@ rc = Blueprint('reimbursement_controller', __name__)
 
 reimbursement_service = ReimbursementService()
 
-@rc.route("/login/reimbursement", methods=['POST'])
+@rc.route("/login/reimbursement/add", methods=['POST'])
 def add_reimbursement():
     request_body_dict = request.get_json()
 
@@ -15,7 +15,7 @@ def add_reimbursement():
     type_of_reimbursement = request_body_dict.get('type_of_reimbursement')
     description = request_body_dict.get('description')
     status = "Pending"
-###make strip function for variables to store the absolute
+
     try:
         reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, status, type_of_reimbursement, description))
 
@@ -25,4 +25,6 @@ def add_reimbursement():
             "messages": e.messages
         }, 400
 
-    return reimbursement_added, 201
+    return {
+               "reimbursement_added": reimbursement_added
+           }, 201
