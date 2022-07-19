@@ -22,6 +22,5 @@ class ReimbursementDao:
                 reimbursement_list = []
                 for row in cur:
                     reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3]))
-                print("here4")
                 return reimbursement_list
 

@@ -12,5 +12,4 @@ class ReimbursementService:
         return new_reimbursement_obj.to_dict()
 
     def view_reimbursement_by_id(self, employee_id):
-        print("here3")
         return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_reimbursement_by_id(employee_id)))
