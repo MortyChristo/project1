@@ -14,6 +14,7 @@ registrationSubmitButton.addEventListener('click', async () => {
           
             
             'method': 'POST',
+            'credentials':'include',
             'headers': {
                 'Content-Type': 'application/json'
                 

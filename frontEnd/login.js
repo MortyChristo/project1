@@ -4,11 +4,6 @@ let loginButton = document.getElementById('login-btn');
 let registrationButton = document.getElementById('registration-btn');
 
 
-registrationButton.addEventListener('click', async () =>{
-    window.location.href = '/frontEnd/registration.html'
-});
-
-
 
 loginButton.addEventListener('click', async () => {
     
@@ -25,7 +20,6 @@ loginButton.addEventListener('click', async () => {
 
             })
         })
-
     if (res.status == 200) {
 
         window.location.href = '/frontEnd/filter.html'
