@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reimbursement Login</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-</head>
-
-
-  
-   <div class="container is-fluid has-background-grey">
-     <div class="columns is-justify-content-center">
-        <div class="column is-6 has-background-danger-light pb-6">
-          <h1 class="is-size-2 has-text-left pb-6">Employee Reimbursement Login</h1>
-          <div class="field">
-              <label class="label">Username</label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Username" id="username-login-input">
-              </div>
-          </div>
-          <div class="field">
-              <label class="label">Password</label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Password" id="password-login-input">
-              </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <button id="login-btn" class="button is-grey-light">Login</button>
-              <button id="registration-btn" class="button is-grey-light">Register</button>
-            </div>
-          </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="navbar__container">
+        <a href="/frontEnd/index.html" id="navbar__logo">Employee Pay Back</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
         </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="/frontEnd/index.html" class="navbar__links" id="home-page">Home</a>
+          </li>
+          <li class="navbar__item">
+            <a href="#about" class="navbar__links" id="about-page">About</a>
+          </li>
+          
+          <li class="navbar__btn">
+            <a href="/frontEnd/login.html" class="button" id="login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+      <div class="hero__container">
+        <h1 class="hero__heading" style="margin-bottom: 100px"><span>Login</span></h1>
+        <tbody>
+          <ul class="label" style= "color: white; margin-bottom: 20px">Username:   <span><input class="input" type="text" placeholder="Username" id="username-login-input"></span></ul>
+          <ul class="label" style= "color: white;">Password :   <span><input class="input" type="text" placeholder="Password" id="password-login-input"></span></ul>
+
+        </tbody>
+        <button id="login-btn" class="button" style="width: 100px; margin-top: 40px "><a>Login</a></button>
       </div>
     </div>
 

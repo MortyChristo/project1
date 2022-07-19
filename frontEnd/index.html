@@ -1,23 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-</head>
-<body>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="navbar__container">
+        <a href="/frontEnd/index.html" id="navbar__logo">Employee Pay Back</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="/frontEnd/index.html" class="navbar__links" id="home-page">Home</a>
+          </li>
+          <li class="navbar__item">
+            <a href="#about" class="navbar__links" id="about-page">About</a>
+          </li>
+          
+          <li class="navbar__btn">
+            <a href="/frontEnd/login.html" class="button" id="login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<button id="project1" class="button is-link">To Project 1</button>
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+      <div class="hero__container">
+        <h1 class="hero__heading">Your Company <span>Cares</span></h1>
+        <p class="hero__description">Reimbursement of your BILL</p>
+        <button class="main__btn"><a href="/frontEnd/registration.html">Register</a></button>
+      </div>
+    </div>
+
+
+    <!-- Services Section -->
+    <div class="services" id="services">
+      <h1>Testimony</h1>
+      <div class="services__wrapper">
+        <div class="services__card">
+          <h2>Jenny Richmond:</h2>
+          <p>"Testimony Here"</p>
+        </div>
+        <div class="services__card">
+          <h2>Jake Heresay:</h2>
+          <p>"Testimony Here"</p>
+        </div>
+        <div class="services__card">
+          <h2>Obi Wan:</h2>
+          <p>"Testimony Here"</p>
+        </div>
+        <div class="services__card">
+          <h2>Chris Hemsworth:</h2>
+          <p>"Testimony Here"</p>
+        </div>
+      </div>
+    </div>
 
 
 
-
-
-
-
-
-<script src = "/frontEnd/index.js"></script>
-</body>
+    <script src="frontend/app.js"></script>
+  </body>
 </html>
+
