@@ -13,7 +13,7 @@ registrationButton.addEventListener('click', async () =>{
 loginButton.addEventListener('click', async () => {
     
     let res = await fetch('http://127.0.0.1:8080/login', {
-            'Access-Control-Allow-Origin': 'http://127.0.0.1:8080/login',
+            'Access-Control-Allow-Origin': '*',
             'method': 'POST',
             'credentials':'include',
             'headers': {

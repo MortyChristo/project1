@@ -1,9 +1,18 @@
 let idInput = document.querySelector('#employee-id')
-
+let logoutBtn = document.querySelector('#logout')
 let getReimbursementsBtn = document.querySelector('#get-reimbursements');
 getReimbursementsBtn.addEventListener('click', grab);
 
+logoutBtn.addEventListener('click', async =>{
+let res = fetch('http://127.0.0.1:8080/logout',{
+    'Access-Control-Allow-Origin': '*',
+    'method':'POST',
+    'headers': {
+        'Content-Type': 'application/json',
+}})
 
+    window.location.href = '/frontend/login.html'
+})
 
 
 async function getReimbursements(){
