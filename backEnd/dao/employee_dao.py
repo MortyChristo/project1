@@ -20,9 +20,10 @@ class EmployeeDao:
                 employee_password = user_info[2]
                 first_name = user_info[3]
                 last_name = user_info[4]
-                email_address = user_info[5]
+                employee_type = user_info[5]
+                email_address = user_info[6]
 
-                return Employee(employee_id, username, employee_password, first_name, last_name, email_address)
+                return Employee(employee_id, username, employee_password, first_name, last_name, employee_type, email_address)
 
     def add_employee(self, employee_obj):
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres",

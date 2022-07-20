@@ -1,11 +1,11 @@
 class Employee:
-    def __init__(self, employee_id, username, employee_password, first_name, last_name, email_address):
+    def __init__(self, employee_id, username, employee_password, first_name, last_name, employee_type, email_address):
         self.employee_id = employee_id
         self.username = username
         self.employee_password = employee_password
         self.first_name = first_name
         self.last_name = last_name
-        self.employee_type = 0
+        self.employee_type = employee_type
         self.email_address = email_address
 
     def to_dict(self):

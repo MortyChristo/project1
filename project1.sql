@@ -35,7 +35,7 @@ CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_
 
 INSERT INTO employees(employee_id, first_name, last_name, employee_type, username, employee_password, email_address  )
 VALUES
-(100001, 'Chris', 'Sullivan', 0, 'christopsullivan', 'PassWord123!', 'email1@revature.net'),
+(100001, 'Chris', 'Sullivan', 0, 'c', 'P', 'email1@revature.net'),
 (100002, 'Martin', 'Burton', 1, 'M', 'a', 'email2@revature.net');
 
 
@@ -44,8 +44,7 @@ VALUES
 (100001, 'd', 'The CLub', 'Pending'),
 (100001, 'a','', 'Pending'),
 (100002, 'a', '', 'Pending'),
-(100002, 'c','', 'Pending'),
-(123456, 'a', '','Pending');
+(100002, 'c','', 'Pending');
 
 
 INSERT INTO employee_type_identifier(id, employee_type)

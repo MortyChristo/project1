@@ -42,7 +42,7 @@ def login():
 
     try:
         employee_dict = employee_service.login(username, password)
-       # session['employee_dict'] = employee_dict
+        session['employee_dict'] = employee_dict
         return employee_dict, 200
     except LoginError as e:
         return {

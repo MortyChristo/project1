@@ -6,8 +6,6 @@ loginButton.addEventListener('click', async () => {
 
     let res = await fetch('http://127.0.0.1:8080/login', {
             'Access-Control-Allow-Origin': '*',
-
-            'Access-Control-Allow-Origin': 'http://127.0.0.1:8080/login',
             'method': 'POST',
             'credentials':'include',
             'headers': {
@@ -18,9 +16,15 @@ loginButton.addEventListener('click', async () => {
                 "password": passwordLogin.value,
             })
         })
+    let data = await res.json();
+
     if (res.status == 200) {
-        window.location.href = '/frontEnd/filter.html'
-        
+        if(data.employee_type == 0){
+            window.location.href = '/frontEnd/filter.html'
+        }
+        if(data.employee_type == 1){
+            window.location.href = '/frontEnd/success.html'
+        }
     } else if (res.status == 400) {
         window.location.href = '/frontEnd/fail.html'//change to login
     }
