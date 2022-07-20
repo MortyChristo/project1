@@ -10,12 +10,32 @@ rc = Blueprint('reimbursement_controller', __name__)
 
 reimbursement_service = ReimbursementService()
 
-@rc.route("/login/reimbursement/<employee_id>", methods=['GET'])
+@rc.route("/login/reimbursement/employee/<employee_id>", methods=['POST'])
 def view_reimbursement(employee_id):
-
+    print(employee_id)
     try:
         return {
-            "reimbursement": reimbursement_service.view_reimbursement_by_id(employee_id)
+            "reimbursement": reimbursement_service.view_reimbursements(employee_id)
+
+        }, 201
+    except ReimbursementError as e:
+         return {
+          "messages": str(e)
+         }, 401
+
+
+
+
+
+
+@rc.route("/login/reimbursement/manager", methods=['GET'])
+def view_all_reimbursement():
+    print("here")
+    try:
+        print("here")
+        return {
+            "reimbursement": reimbursement_service.view_all_reimbursements()
+
         }, 201
     except ReimbursementError as e:
          return {

@@ -4,15 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Website</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="/frontEnd/styles.css"/>    
   </head>
   <body>
+
     <!-- Navbar Section -->
     <nav class="navbar">
       <div class="navbar__container">
@@ -25,27 +20,29 @@
           <li class="navbar__item">
             <a href="/frontEnd/index.html" class="navbar__links" id="home-page">Home</a>
           </li>
-          <li class="navbar__item">
-            <a href="#about" class="navbar__links" id="about-page">About</a>
-          </li>
+        
           
           <li class="navbar__btn">
-            <a href="/frontEnd/registration.html" class="button" id="login">Register</a>
+            <a href="/frontEnd/registration.html" class="button" id="register">Register</a>
           </li>
         </ul>
       </div>
     </nav>
-
     <!-- Hero Section -->
     <div class="hero" id="home">
       <div class="hero__container">
         <h1 class="hero__heading" style="margin-bottom: 100px"><span>Welcome</span> Back</h1>
         <tbody>
-          <ul class="label" style= "color: white; margin-bottom: 20px">Username:   <span><input class="input" type="text" placeholder="Username" id="username-login-input"></span></ul>
-          <ul class="label" style= "color: white;">Password :   <span><input class="input" type="text" placeholder="Password" id="password-login-input"></span></ul>
-
+          <table>
+          <tr><ul class="label" style= "color: white; margin-bottom: 20px">Username:   <input class="input" type="text" placeholder="Username" id="username-login-input"></ul></tr>
+          <tr><ul class="label" style= "color: white;">Password :   <input class="input" type="text" placeholder="Password" id="password-login-input"></ul></tr>
+        </table>
         </tbody>
-        <button id="login-btn" class="button" style="width: 100px; margin-top: 40px "><a>Login</a></button>
+     
+       
+        <button class="navbar__btn" id="login" style="width: 50px; margin-top: 15px; ">Login</button>
+      
+      
       </div>
     </div>
 

@@ -11,5 +11,8 @@ class ReimbursementService:
         new_reimbursement_obj = self.reimbursement_dao.add_reimbursement(reimbursement_obj)
         return new_reimbursement_obj.to_dict()
 
-    def view_reimbursement_by_id(self, employee_id):
-        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_reimbursement_by_id(employee_id)))
+    def view_all_reimbursements(self):
+        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_all_reimbursements()))
+
+    def view_reimbursements(self, employee_id):
+        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_reimbursements(employee_id)))

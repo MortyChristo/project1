@@ -15,7 +15,16 @@ class ReimbursementDao:
 
                 return Reimbursements(reimbursement_row[0], reimbursement_row[1], reimbursement_row[2], reimbursement_row[3])
 
-    def view_reimbursement_by_id(self, employee_id):
+    def view_all_reimbursements(self):
+        with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT * FROM reimbursements")
+                reimbursement_list = []
+                for row in cur:
+                    reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3]))
+                return reimbursement_list
+
+    def view_reimbursements(self, employee_id):
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM reimbursements WHERE employee_id = %s", (employee_id,))
@@ -23,4 +32,3 @@ class ReimbursementDao:
                 for row in cur:
                     reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3]))
                 return reimbursement_list
-
