@@ -1,59 +1,42 @@
 
-   
-   
-   
-   
+     
    let idInput = document.querySelector('#employee-id')
    let logoutBtn = document.querySelector('#logout')
-   let getReimbursementsBtn = document.querySelector('#get-reimbursements');
-   getReimbursementsBtn.addEventListener('click', grab);
-   
-   logoutBtn.addEventListener('click', async =>{
-   let res = fetch('http://127.0.0.1:8080/logout',{
-       'Access-Control-Allow-Origin': '*',
-       'method':'POST',
-       'headers': {
-           'Content-Type': 'application/json',
-   }})
-   
-       window.location.href = '/frontend/login.html'
-   })
-   
-   
-   async function getReimbursements(){
-   
-   let res = await fetch('http://127.0.0.1:8080/login/reimbursement', {
-               'Access-Control-Allow-Origin': '*',
-               'method': 'GET',
-               'headers': {
-                   'Content-Type': 'application/json',
-               }})
-          
-   if (res.status == 200) {
-   
-       window.location.href = '/frontEnd/success.html'
-               
-   } else if (res.status == 400) {
-       
-       window.location.href = '/frontEnd/fail.html'//change to login
-       
-           }
-   
-   }
+   let reimbursemenElement = document.querySelector('#reimbursement-table tbody');
+
+    document.addEventListener('DOMContentLoaded', grab);
+
    
    function addReimbursementsToTable(reimbursement_obj){
-       let reimbursemenElement = document.querySelector('#reimbursement-table');
-       let row = document.createElement('tr');
-       let idCell = document.createElement('td');
-       idCell.innerText = reimbursement_obj.employee_id;
-       
-       row.append(idCell);
-   }
+        let row = document.createElement('tr');
+        let typeCell = document.createElement('td');
+        i=0;
+        while(i < reimbursement_obj.reimbursement.length){
+            let row = document.createElement('tr');
+            let typeCell = document.createElement('td');
+            typeCell.innerHTML = reimbursement_obj.reimbursement[i].status;
+            row.appendChild(typeCell);
+            reimbursemenElement.appendChild(row);
+            console.log(reimbursement_obj.reimbursement)
+            i++; 
+        }
+   }    
+    
    
-   function grab() {
-       let res = fetch(`http://127.0.0.1:8080/login/reimbursement/${idInput.value}`)
-       console.log(res)
+  function grab() {
+    
+     
+        console.log("grab")
+       fetch('http://127.0.0.1:8080/login/reimbursement/manager')
+       .then((res) => {
+            data = res.json();
+            return data;
+       }).then((data) => {
+            addReimbursementsToTable(data);
        
-   }
-      
-      
+       }).catch((err) =>{
+          console.log(err)
+       })
+    }
+
+     
