@@ -1,7 +1,7 @@
 from flask import Blueprint, request, session
-
+from backend.services.employee_servies import EmployeeService
 import backend.services.reimbursement_services
-from backend.exception.registration import RegistrationError
+from backend.exception.registration_error import RegistrationError
 from backend.services.reimbursement_services import ReimbursementService
 from backend.model.reimbursement import Reimbursements
 from backend.exception.reimbursement_error import ReimbursementError
@@ -9,17 +9,19 @@ from backend.exception.reimbursement_error import ReimbursementError
 rc = Blueprint('reimbursement_controller', __name__)
 
 reimbursement_service = ReimbursementService()
+employee_service = EmployeeService()
 
-@rc.route("/login/reimbursement/employee/<employee_id>")
-
-def view_reimbursement():
+@rc.route("/login/reimbursement/employee/<employee_id>", methods=['GET'])
+def view_reimbursement(employee_id):
+    print(employee_id)
     session.clear()
     try:
         return {
-            "reimbursement": reimbursement_service.view_reimbursements(employee_id)
+            "reimbursement": reimbursement_service.view_reimbursements_by_id(employee_id)
 
         }, 201
     except ReimbursementError as e:
+
          return {
           "messages": str(e)
          }, 401
@@ -31,10 +33,10 @@ def view_reimbursement():
 
 @rc.route("/login/reimbursement/manager", methods=['GET'])
 def view_all_reimbursement():
-
+    session.clear()
     try:
         reimbursement_dict = reimbursement_service.view_all_reimbursements()
-        session.clear()
+
 
         return {
             "reimbursement": reimbursement_dict

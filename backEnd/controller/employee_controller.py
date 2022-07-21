@@ -1,7 +1,7 @@
 from flask import Blueprint, request, session
 from flask_session import Session
 from backend.exception.login_error import LoginError
-from backend.exception.registration import RegistrationError
+from backend.exception.registration_error import RegistrationError
 from backend.model.employee import Employee
 from backend.services.employee_servies import EmployeeService
 
@@ -49,8 +49,9 @@ def login():
             "message": str(e)
         }, 400
 
-@ec.route("/register", methods=['POST'])
+@ec.route("/login/register", methods=['POST'])
 def register_employee():
+
     request_body_dict = request.get_json()
 
     employee_id = request_body_dict.get('employee_id')
@@ -62,10 +63,11 @@ def register_employee():
 
 
     try:
-        added_user = employee_service.add_employee(Employee(employee_id, username, password, first_name, last_name, email_address))
+
+        added_user = employee_service.add_employee(Employee(employee_id, username, password, first_name, last_name, '0', email_address))
+        return added_user, 200
+
     except RegistrationError as e:
         return {
-            "messages": e.messages
+            "messages": employee_service.error_messages
         }, 400
-
-    return added_user, 201

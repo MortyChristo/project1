@@ -24,6 +24,7 @@ employee_type VARCHAR(20)
 
 CREATE TABLE reimbursements(
 employee_id VARCHAR(10) NOT NULL,
+amount FLOAT,
 status VARCHAR,
 type_of_reimbursement VARCHAR, 
 description VARCHAR DEFAULT 'N/A',
@@ -39,12 +40,12 @@ VALUES
 (100002, 'Martin', 'Burton', 1, 'M', 'a', 'email2@revature.net');
 
 
-INSERT INTO reimbursements(employee_id, type_of_reimbursement, description, status)
+INSERT INTO reimbursements(employee_id, type_of_reimbursement, description, status, amount)
 VALUES 
-(100001, 'd', 'The CLub', 'Pending'),
-(100001, 'a','', 'Pending'),
-(100002, 'a', '', 'Pending'),
-(100002, 'c','', 'Pending');
+(100001, 'd', 'The CLub', 'Pending', 15.50),
+(100001, 'a','', 'Pending', 16.20),
+(100002, 'a', '', 'Pending', 15.20),
+(100002, 'c','', 'Pending',14.00);
 
 
 INSERT INTO employee_type_identifier(id, employee_type)

@@ -26,7 +26,7 @@
             aCell.innerHTML = reimbursement_obj.reimbursement[i].amount;
             
             
-            row.appendChild("$"+typeCell);
+            row.appendChild(typeCell);
             row.appendChild(statusCell);
             row.appendChild(dCell);
             row.appendChild(idCell);

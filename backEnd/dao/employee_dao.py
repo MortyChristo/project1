@@ -41,7 +41,7 @@ class EmployeeDao:
                 user_that_was_inserted = cur.fetchone()
                 conn.commit()
 
-                return Employee(user_that_was_inserted[0], user_that_was_inserted[1], user_that_was_inserted[2], user_that_was_inserted[3], user_that_was_inserted[4], user_that_was_inserted[5])
+                return Employee(user_that_was_inserted[0], user_that_was_inserted[1], user_that_was_inserted[2], user_that_was_inserted[3], user_that_was_inserted[4], user_that_was_inserted[5], user_that_was_inserted[6])
 
     def get_user_by_email(self, email):
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres",

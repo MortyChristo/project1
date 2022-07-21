@@ -10,9 +10,8 @@ let registrationSubmitButton = document.getElementById('register-submit-btn');
 registrationSubmitButton.addEventListener('click', async () => {
     
     
-    let res = await fetch('http://127.0.0.1:8080/register', {
+    let res = await fetch('http://127.0.0.1:8080/login/register', {
           
-            
             'method': 'POST',
             'credentials':'include',
             'headers': {
@@ -28,26 +27,32 @@ registrationSubmitButton.addEventListener('click', async () => {
                 "email_address": emailInput.value
             })
         })
-    console.log(res);
-    
+    let data = await res.json();
+
     if (res.status == 200) {
 
-        window.location.href = '/frontEnd/success.html'
+        window.alert("Account Successfully Created")
     
-    } else if (res.status == 400) {
-        let data = await res.json();
+    } 
+    else if (res.status == 400) {
         
         let registrationErrorMessagesDiv = document.getElementById('registration-error-messages')
         registrationErrorMessagesDiv.innerHTML = '';
-
+        console.log(data.messages)
         let errorMessages = data.messages;
-        for (let errorMessage of errorMessages) {
-            let errorElement = document.createElement('p');
-            errorElement.innerHTML = errorMessage;
-            errorElement.style.color = 'red';
-            errorElement.style.fontWeight = 'bold';
-
-            registrationErrorMessagesDiv.appendChild(errorElement);
+        let errorString = ""
+        for (i=0; i < errorMessages.length; i++) {
+            errorString = errorString + errorMessages[i] +"\n"  
         }
+        console.log(errorString)
+        window.alert(errorString)
+
+        //let errorElement = document.createElement('p');
+        // errorElement.innerHTML = errorMessages;
+        // errorElement.style.color = 'red';
+        // errorElement.style.fontWeight = 'bold';
+
+        // registrationErrorMessagesDiv.appendChild(errorElement);
+        // }
     }
 });
