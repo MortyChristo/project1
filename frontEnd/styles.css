@@ -6,6 +6,9 @@
     scroll-behavior: smooth;
   }
   
+  table, tr, td, th{
+    border: 1px solid white;
+  }
   .navbar {
     background: #131313;
     height: 80px;

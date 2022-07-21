@@ -21,7 +21,8 @@ class ReimbursementDao:
                 cur.execute("SELECT * FROM reimbursements")
                 reimbursement_list = []
                 for row in cur:
-                    reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3]))
+                    reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3], row[4], row[5]))
+
                 return reimbursement_list
 
     def view_reimbursements(self, employee_id):

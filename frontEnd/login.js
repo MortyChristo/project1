@@ -20,10 +20,10 @@ loginButton.addEventListener('click', async () => {
 
     if (res.status == 200) {
         if(data.employee_type == 0){
-            window.location.href = '/frontEnd/filter.html'
+            window.location.href = '/frontEnd/success.html'
         }
         if(data.employee_type == 1){
-            window.location.href = '/frontEnd/success.html'
+            window.location.href = '/frontEnd/filter.html'
         }
     } else if (res.status == 400) {
         window.location.href = '/frontEnd/fail.html'//change to login
