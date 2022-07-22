@@ -1,6 +1,24 @@
 let usernameLogin = document.getElementById('username-login-input');
 let passwordLogin = document.getElementById('password-login-input');
 let loginButton = document.getElementById('login');
+var enterButton = document.getElementById("username-login-input");
+var enterButton1 = document.getElementById("password-login-input");
+
+
+
+enterButton.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById('login').click();
+  }
+}); 
+enterButton1.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById('login').click();
+    }
+  }); 
+
 
 
 loginButton.addEventListener('click', async () => {
@@ -32,6 +50,5 @@ loginButton.addEventListener('click', async () => {
             window.location.href = '/frontEnd/manager.html'
         }
     } else if (res.status == 400) {
-        window.location.href = '/frontEnd/fail.html'//change to login
-    }
+        window.alert("Invalid Username/Password")    }
 });

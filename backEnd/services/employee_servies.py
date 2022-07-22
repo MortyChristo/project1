@@ -2,7 +2,7 @@ import re
 from backend.dao.employee_dao import EmployeeDao
 from backend.exception.login_error import LoginError
 from backend.exception.registration_error import RegistrationError
-from flask_session import Session
+
 
 class EmployeeService:
     def __init__(self):
@@ -11,25 +11,33 @@ class EmployeeService:
 
     def login(self, username, password):
         user_obj = self.employee_dao.get_user_by_username_and_password(username, password)
-
         if user_obj is None:
             raise LoginError("Invalid username and/or password")
 
         return user_obj.to_dict()
 
 
+
+
+
+
     def add_employee(self, employee_obj):
         registration_error = RegistrationError()
         self.error_messages = []
-        # if not employee_obj.username.isalnum():
-        #     registration_error.messages.append("Username must only contain alphanumeric characters")
-        #
-        # if len(employee_obj.username) < 6 or len(employee_obj.username) > 20:
-        #     registration_error.messages.append("Username must be between 6 and 20 characters in length inclusive")
-        #
-        # # if self.employee_obj.get_user_by_username(employee_obj.username) is not None:
-        # #     registration_error.messages.append("Username is already taken")
-        #
+        if not (len(employee_obj.employee_id) == 6):
+            self.error_messages.append("Employee ID must be 6 digits long")
+        if not employee_obj.employee_id.isnumeric():
+            self.error_messages.append("Employee ID should only contain numbers")
+
+        if not employee_obj.username.isalnum():
+            registration_error.messages.append("Username must only contain alphanumeric characters")
+            self.error_messages.append("Username must only contain alphanumeric characters")
+        if len(employee_obj.username) < 6 or len(employee_obj.username) > 20:
+            registration_error.messages.append("Username must be between 6 and 20 characters in length inclusive")
+            self.error_messages.append("Username must be between 6 and 20 characters in length inclusive")
+        # if self.employee_obj.get_user_by_username(employee_obj.username) is not None:
+        #     registration_error.messages.append("Username is already taken")
+
         if employee_obj.username == '':
              registration_error.messages.append("Username must not be blank")
              self.error_messages.append("Username must not be blank")
@@ -94,8 +102,8 @@ class EmployeeService:
         if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', employee_obj.email_address):
             registration_error.messages.append("Email address must match format username@domain")
 
-        if self.employee_dao.get_user_by_email(employee_obj.email_address) is not None:
-            registration_error.messages.append("Email address is already taken")
+        # if self.employee_dao.get_user_by_email(employee_obj.email_address) is not None:
+        #     registration_error.messages.append("Email address is already taken")
 
         #If error messages exist in the exception object, raise the exception
         if len(registration_error.messages) > 0:

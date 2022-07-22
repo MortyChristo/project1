@@ -1,5 +1,6 @@
 import psycopg
 from backend.model.reimbursement import Reimbursements
+from backend.model.employee_id import Employee_id
 
 class ReimbursementDao:
     def add_reimbursement(self, reimbursement_obj):
@@ -33,3 +34,23 @@ class ReimbursementDao:
                 for row in cur:
                     reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3], row[4], row[5]))
                 return reimbursement_list
+
+    def view_all_reimbursements_status(self):
+        with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT * FROM reimbursements ORDER BY status DESC")
+                reimbursement_list = []
+                for row in cur:
+                    reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3], row[4], row[5]))
+                return reimbursement_list
+
+
+    def view_employee(self):
+        with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT employee_id FROM employees")
+                employee_list = []
+                for row in cur:
+                    employee_list.append(Employee_id(row))
+
+                return employee_list

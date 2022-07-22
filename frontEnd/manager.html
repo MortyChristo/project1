@@ -21,9 +21,12 @@
     
     <ul class="navbar__menu">
       <li class="navbar__item">
-        <a href="/frontEnd/index.html" class="navbar__links" id="home-page">Home</a>
+        <a href="#" class="navbar__links" id="logout">Logout</a>
       </li>
-      
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="/frontEnd/index.html" class="navbar__links" id="home-page">Home</a>
+        </li>
       
       <li class="navbar__btn">
         <a href="/frontEnd/login.html" class="button" id="login">Login</a>
@@ -36,14 +39,33 @@
     
   <table id="reimbursement-table" style="width:100%">
     <thead>
-    <tr>
-      <th>Reimbursement Type</th>
-      <th>Status</th>
-      <th>Description</th>
-      <th>Employee ID</th>
-      <th>Amount</th>
+    <tr>      
+      <th><select name="employee_id_box" id="employee_id_box">
+        <option value="Status">Employee ID</option>
+
+      </select>
+    </th>
       <th>Reimbursement ID</th>
-    </tr>
+      <th>Amount</th>
+      <th><select name="re-type" id="re-type">
+        <option value="type_of">Type of Reimbursement</option>
+        <option value="a">Lodging</option>
+        <option value="b">Travel</option>
+        <option value="c">Food</option>
+        <option value="d">Other</option>
+      </select>
+    </th>
+      <th>Description</th>
+      
+      <th><select name="status" id="status">
+        <option value="Status">--Status--</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Denied">Declined</option>
+      </select>
+    </th>
+    
+  </tr>
   </thead>
   
         <tbody>

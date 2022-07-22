@@ -13,12 +13,10 @@ employee_service = EmployeeService()
 
 @rc.route("/login/reimbursement/employee/<employee_id>", methods=['GET'])
 def view_reimbursement(employee_id):
-    print(employee_id)
     session.clear()
     try:
         return {
             "reimbursement": reimbursement_service.view_reimbursements_by_id(employee_id)
-
         }, 201
     except ReimbursementError as e:
 
@@ -46,6 +44,42 @@ def view_all_reimbursement():
          return {
           "messages": str(e)
          }, 401
+
+
+
+@rc.route("/login/reimbursement/manager/status", methods=['GET'])
+def view_all_reimbursement_status():
+    session.clear()
+    try:
+        reimbursement_dict = reimbursement_service.view_all_reimbursements_status()
+
+
+        return {
+            "reimbursement": reimbursement_dict
+               }, 200
+
+    except ReimbursementError as e:
+         return {
+          "messages": str(e)
+         }, 401
+
+
+@rc.route("/login/reimbursement/manager/employee", methods=['GET'])
+def view_employee_id():
+    session.clear()
+    try:
+        reimbursement_dict = reimbursement_service.view_employee()
+
+
+        return {
+            "reimbursement": reimbursement_dict
+               }, 200
+
+    except ReimbursementError as e:
+         return {
+          "messages": str(e)
+         }, 401
+
 
 
 @rc.route("/login/reimbursement/add", methods=['POST'])

@@ -16,3 +16,9 @@ class ReimbursementService:
 
     def view_reimbursements_by_id(self, employee_id):
         return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_reimbursements(employee_id)))
+
+    def view_all_reimbursements_status(self):
+        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_all_reimbursements_status()))
+
+    def view_employee(self):
+        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_employee()))

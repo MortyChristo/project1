@@ -3,10 +3,10 @@ let idInput = document.querySelector('#employee-id')
 let logoutBtn = document.querySelector('#logout')
 let reimbursemenElement = document.querySelector('#reimbursement-table tbody');
 
-
+let eid = localStorage.getItem("employee")
 document.addEventListener('DOMContentLoaded', grab)
 
-let eid = localStorage.getItem("employee")
+
 
 
 function addReimbursementsToTable(reimbursement_obj){
@@ -37,6 +37,7 @@ while(i < reimbursement_obj.reimbursement.length){
    reimbursemenElement.appendChild(row);
    i++; 
 }
+localStorage.clear
 }    
 
 
@@ -44,7 +45,7 @@ function grab() {
 
 
 fetch(`http://127.0.0.1:8080/login/reimbursement/employee/${eid}`,{
-   'credentials':'include'
+   'credentials':'include',
 })
 .then((res) => {
    data = res.json();
