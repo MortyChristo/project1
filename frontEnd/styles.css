@@ -7,7 +7,7 @@
   }
   
   table, tr, td, th{
-    border: 1px solid white;
+    border: 1px solid rgb(73, 70, 70);
   }
   .navbar {
     background: #131313;

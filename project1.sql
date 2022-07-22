@@ -28,8 +28,8 @@ CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_
 
 INSERT INTO employees(employee_id, first_name, last_name, employee_type, username, employee_password, email_address  )
 VALUES
-(100001, 'Chris', 'Sullivan', 0, 'c', 'P', 'email1@revature.net'),
-(100002, 'Martin', 'Burton', 1, 'M', 'a', 'email2@revature.net');
+(100001, 'Chris', 'Sullivan', 0, 'ChristopSullivan', 'PassWord123!', 'email1@revature.net'),
+(100002, 'Martin', 'Burton', 1, 'MartyMcFly', 'TheDoc123!', 'email2@revature.net');
 
 
 INSERT INTO reimbursements(employee_id, type_of_reimbursement, description, status, amount)
@@ -38,12 +38,6 @@ VALUES
 (100001, 'a','', 'Approved', 16.20),
 (100002, 'a', '', 'Denied', 15.20),
 (100002, 'c','', 'Approved',14.00);
-
-
-INSERT INTO employee_type_identifier(id, employee_type)
-VALUES 
-(0, 'Employee'),
-(1, 'Finance Manager')
 
 
 SELECT employees.first_name, employees.last_name, employees.employee_id, employee_type_identifier.employee_type

@@ -36,8 +36,6 @@ registrationSubmitButton.addEventListener('click', async () => {
     else if (res.status == 400) {
         
         let registrationErrorMessagesDiv = document.getElementById('registration-error-messages')
-        registrationErrorMessagesDiv.innerHTML = '';
-        console.log(data.messages)
         let errorMessages = data.messages;
         let errorString = ""
         for (i=0; i < errorMessages.length; i++) {

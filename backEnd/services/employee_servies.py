@@ -99,8 +99,8 @@ class EmployeeService:
             registration_error.messages.append("Length of last name must be between 2 and 100 characters inclusive")
             self.error_messages.append("Length of last name must be between 2 and 100 characters inclusive")
         # Email address validation
-        if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', employee_obj.email_address):
-            registration_error.messages.append("Email address must match format username@domain")
+        # if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', employee_obj.email_address):
+        #     registration_error.messages.append("Email address must match format username@domain")
 
         # if self.employee_dao.get_user_by_email(employee_obj.email_address) is not None:
         #     registration_error.messages.append("Email address is already taken")
