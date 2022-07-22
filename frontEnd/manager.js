@@ -6,8 +6,9 @@
    let employeeElement = document.querySelector('#employee_id_box');
    let typeElement = document.getElementById("re-type")
    let logoutElement = document.getElementById("logout");
+   let newNav = document.getElementById("navbar_logo")
    let submitBtn = document.getElementById("submit")
-
+  
     submitBtn.addEventListener('click', approval);
 
     document.addEventListener('DOMContentLoaded', grab);
@@ -21,7 +22,6 @@
     typeElement.addEventListener("change", filter_type)
    
     logoutElement.addEventListener("click", logout)
-
 
 
 
@@ -45,7 +45,6 @@ function logout(){
 function approval(){
 
      let approval = document.getElementsByName('approval')
-    
      for(i=0;i<approval.length;i++){
           if (approval[0].checked){
                let approved = approval[0].value;

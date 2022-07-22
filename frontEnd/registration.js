@@ -9,7 +9,6 @@ let registrationSubmitButton = document.getElementById('register-submit-btn');
 
 registrationSubmitButton.addEventListener('click', async () => {
     
-    
     let res = await fetch('http://127.0.0.1:8080/login/register', {
           
             'method': 'POST',
@@ -44,15 +43,7 @@ registrationSubmitButton.addEventListener('click', async () => {
         for (i=0; i < errorMessages.length; i++) {
             errorString = errorString + errorMessages[i] +"\n"  
         }
-        console.log(errorString)
         window.alert(errorString)
 
-        //let errorElement = document.createElement('p');
-        // errorElement.innerHTML = errorMessages;
-        // errorElement.style.color = 'red';
-        // errorElement.style.fontWeight = 'bold';
-
-        // registrationErrorMessagesDiv.appendChild(errorElement);
-        // }
     }
 });

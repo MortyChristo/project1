@@ -1,52 +1,57 @@
-let employeeIdInput = document.getElementById('employee-id-input');
-let usernameInput = document.getElementById('username-input');
-let passwordInput = document.getElementById('password-input');
-let firstNameInput = document.getElementById('firstname-input');
-let lastNameInput = document.getElementById('lastname-input');
-let emailInput = document.getElementById('email-input');
-let registrationSubmitButton = document.getElementById('register-submit-btn');
+let amountInput = document.getElementById('amount-input');
+let descriptionInput = document.getElementById('description-input');
+let submitButton = document.getElementById('submit-btn');
+let eid = localStorage.getItem("employee")
 
+submitButton.addEventListener('click', add);
 
-registrationSubmitButton.addEventListener('click', async () => {
-    
-    
-    let res = await fetch('http://127.0.0.1:8080/register', {
-          
-            
-            'method': 'POST',
-            'headers': {
-                'Content-Type': 'application/json'
-                
-            },
-            'body': JSON.stringify({
-                "employee_id":employeeIdInput.value,
-                "username": usernameInput.value,
-                "password": passwordInput.value,
-                "first_name": firstNameInput.value,
-                "last_name": lastNameInput.value,
-                "email_address": emailInput.value
-            })
-        })
-    console.log(res);
-    
-    if (res.status == 200) {
+function add(){ 
+    let expense = document.getElementsByName('expense')
+    for(i=0;i<expense.length;i++){
+        if (expense[i].checked){
+             let ex = expense[i].value;
+             sessionStorage.setItem("value", ex)
+             break;
+            }
 
-        window.location.href = '/frontEnd/success.html'
-    
-    } else if (res.status == 400) {
-        let data = await res.json();
-        
-        let registrationErrorMessagesDiv = document.getElementById('registration-error-messages')
-        registrationErrorMessagesDiv.innerHTML = '';
-
-        let errorMessages = data.messages;
-        for (let errorMessage of errorMessages) {
-            let errorElement = document.createElement('p');
-            errorElement.innerHTML = errorMessage;
-            errorElement.style.color = 'red';
-            errorElement.style.fontWeight = 'bold';
-
-            registrationErrorMessagesDiv.appendChild(errorElement);
-        }
+        // else if (expense[1].checked){
+        //     let ex = expense[1].value;
+        //     sessionStorage.setItem("value", ex)
+        // }       
+        // else if (expense[2].checked){
+        //     let ex = expense[2].value;
+        //     sessionStorage.setItem("value", ex)
+        // }    
+        // else if(expense[3].checked){
+        //     let ex = expense[3].value;
+        //     sessionStorage.setItem("value", ex)
+        // }
     }
-});
+
+    fetch(`http://127.0.0.1:8080//login/reimbursement/add`, {
+        'Access-Control-Allow-Origin': '*',
+        'method': 'POST',
+        'credentials':'include',
+        'headers': {
+            'Content-Type': 'application/json'
+            
+        },
+        'body': JSON.stringify({
+            "employee_id": eid,
+            "amount": amountInput.value,
+            "type_of_reimbursement": sessionStorage.getItem("value"),
+            "description": descriptionInput.value
+            })
+        
+        }).then((res) =>{
+
+            data = res.status;
+            return data;
+        }).then((data) => {
+            if (data == 200){
+                window.alert("Reimbursement Added")
+            }
+        })
+  
+    
+    };

@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Reimbursement</title>
     <link rel="stylesheet" href="/frontEnd/styles.css">   
@@ -37,27 +36,35 @@
                   <div class="hero__container">
                     <h1 class="hero__heading" style="margin-bottom: 100px; margin-top: 0px;">Add <span> Reimbursement</span></h1>
                     <tbody>
-                      <div class="control" style="margin-bottom: 30px">
-                        <label class="radio">
-                          <input type="radio" name="reimbursement-type" value="a">
-                          A. Lodging
-                        </label>
-                        <label class="radio" >
-                          <input type="radio" name="reimbursement-type" value="b" style="margin-left: 35px">
-                          B. Travel
-                        </label>
-                        <label class="radio">
-                          <input type="radio" checked name="reimbursement-type" value="b" style="margin-left: 35px">
-                          C. Food
-                          <input type="radio" checked name="reimbursement-type" value="d" style="margin-left: 35px">
-                          D. Other
-                        </label>
+                      <div>
+                        <ul>
+                          <div class="control" style="margin-bottom: 30px" >
+                            <label class="radio" >
+                              <input type="radio" class="expense" name="expense" value="a" id="a">
+                              Lodging
+                            </label>
+                            <label class="radio">
+                              <input type="radio" class="expense" name="expense" value="b" id ="b": style="margin-left: 35px">
+                              Travel
+                            </label>
+                            <label>
+                            <input type="radio" class="expense" name="expense" value="c" id="c" style="margin-left: 35px">
+                            Food
+                          </label>
+                          <label class="radio">
+                            <input type="radio" class="expense" name="expense" value="d" id ="d": style="margin-left: 35px">
+                            Other
+                          </label>
+                          
+                            
+                          </div>
+                        </ul>
                       </div>
                       <ul class="label" style= "color: white; margin-bottom: 20px;">Amount:   <span style="margin-left: 35px"><input class="input" type="text" style="margin-left: 20px" placeholder="$00.00" id="amount-input"></span></ul>
-                      <ul class="label" style= "color: white; margin-bottom: 20px">Description:   <span style="margin-left: 35px"><input class="input" type="text" placeholder="N/A" id="amount-input"></span></ul>
+                      <ul class="label" style= "color: white; margin-bottom: 20px">Description:   <span style="margin-left: 35px"><input class="input" type="text" placeholder="N/A" id="description-input"></span></ul>
 
                     </tbody>
-                    <button id="register-submit-btn" class="button" style="width: 100px; margin-top: 40px "><a>Register</a></button>
+                    <button id="submit-btn" class="button" style="height: 40px;width: 250px; margin-top: 20px "><a>Register</a></button>
                   </div>
                 </div>
 

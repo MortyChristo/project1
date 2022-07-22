@@ -4,7 +4,7 @@ let loginButton = document.getElementById('login');
 var enterButton = document.getElementById("username-login-input");
 var enterButton1 = document.getElementById("password-login-input");
 
-
+sessionStorage.clear
 
 enterButton.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
@@ -41,8 +41,10 @@ loginButton.addEventListener('click', async () => {
 
     localStorage.setItem("employee", eid)
 
+
     if (res.status == 200) {
         if(data.employee_type == 0){
+            
             window.location.href = '/frontEnd/employee.html'
            
         }

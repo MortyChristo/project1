@@ -110,13 +110,16 @@ def view_employee_id():
 def add_reimbursement():
     request_body_dict = request.get_json()
 
+
+
     employee_id = request_body_dict.get('employee_id')
+    amount = request_body_dict.get('amount')
     type_of_reimbursement = request_body_dict.get('type_of_reimbursement')
     description = request_body_dict.get('description')
     status = "Pending"
 
     try:
-        reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, status, type_of_reimbursement, description))
+        reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status, type_of_reimbursement, description, None))
 
     except RegistrationError as e:  ##Change this error
         return {
