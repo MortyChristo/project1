@@ -6,6 +6,9 @@
    let employeeElement = document.querySelector('#employee_id_box');
    let typeElement = document.getElementById("re-type")
    let logoutElement = document.getElementById("logout");
+   let submitBtn = document.getElementById("submit")
+
+    submitBtn.addEventListener('click', approval);
 
     document.addEventListener('DOMContentLoaded', grab);
 
@@ -39,7 +42,36 @@ function logout(){
 }
 
 
+function approval(){
 
+     let approval = document.getElementsByName('approval')
+    
+     for(i=0;i<approval.length;i++){
+          if (approval[0].checked){
+               let approved = approval[0].value;
+               sessionStorage.setItem("value", approved)
+     }
+          else{
+               let approved = approval[1].value;
+               sessionStorage.setItem("value", approved)
+          }
+     let id = document.getElementById("rid").value
+     
+    
+
+     if(sessionStorage.getItem("value") == "a"){
+           fetch(`http://127.0.0.1:8080/login/reimbursement/approve/${id}`,{
+                'credentials':'include'
+           })
+          
+     }
+     else{
+          console.log("here")
+          fetch(`http://127.0.0.1:8080/login/reimbursement/deny/${id}`,{
+               'credentials':'include'
+     })
+}}
+}
 
 
 
@@ -63,6 +95,7 @@ function getId(){
           for(i = 0; i < data.reimbursement.length; i++){
                let newOption = new Option(data.reimbursement[i].employee_id[0], data.reimbursement[i].employee_id[0])
                employeeElement.add(newOption, undefined)
+               
           }
 }).catch((err) =>{
         console.log(err)
@@ -102,8 +135,7 @@ function getId(){
           }
             idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
             ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-            aCell.innerHTML = reimbursement_obj.reimbursement[i].amount;
-            
+            aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)                              
             
 
 
@@ -208,8 +240,7 @@ function filterStatus(){
                          typeCell.innerHTML = "Other"
                     }                    idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
                     ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-                    aCell.innerHTML = reimbursement_obj.reimbursement[i].amount;
-                    
+                    aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)                                      
                     row.appendChild(idCell);
                     row.appendChild(ridCell);
                     row.appendChild(aCell);
@@ -236,17 +267,18 @@ function filterStatus(){
                data = res.json();
                return data;
           }).then((data) => {
-               
-               addReimbursementsToTablebyid(data, employeeValue);
-               
+               addReimbursementsToTablebyid(data, employeeValue)
+              
+
           }).catch((err) =>{
              console.log(err)
           })
             
-          }
+          
      
           function addReimbursementsToTablebyid(reimbursement_obj, employeeValue){
                i=0;
+
                
                if(employeeValue == "Employee ID"){
                     grab()
@@ -297,8 +329,7 @@ function filterStatus(){
                               typeCell.innerHTML = "Other"
                          }                         idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
                          ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-                         aCell.innerHTML = reimbursement_obj.reimbursement[i].amount;
-                         
+                         aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)                                           
                          row.appendChild(idCell);
                          row.appendChild(ridCell);
                          row.appendChild(aCell);
@@ -311,7 +342,7 @@ function filterStatus(){
                
                    i++; 
                }
-          }    }
+          }    }}
            
 
           
@@ -327,7 +358,7 @@ function filterStatus(){
                return data;
           }).then((data) => {
                
-               addReimbursementsToTablebyid(data, typeValue);
+               addReimbursementsToTablebyType(data, typeValue);
                
           }).catch((err) =>{
              console.log(err)
@@ -335,7 +366,7 @@ function filterStatus(){
             
           }
      
-          function addReimbursementsToTablebyid(reimbursement_obj, typeValue){
+          function addReimbursementsToTablebyType(reimbursement_obj, typeValue){
                i=0;
                
                if(typeValue == "type_of"){
@@ -387,8 +418,8 @@ function filterStatus(){
                               typeCell.innerHTML = "Other"
                          }                         idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
                          ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-                         aCell.innerHTML = reimbursement_obj.reimbursement[i].amount;
-                         
+                         aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)
+                                           
                          row.appendChild(idCell);
                          row.appendChild(ridCell);
                          row.appendChild(aCell);

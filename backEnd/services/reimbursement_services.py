@@ -22,3 +22,9 @@ class ReimbursementService:
 
     def view_employee(self):
         return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_employee()))
+
+    def change_status_a(self, reimbursement_id):
+        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.change_status_a(reimbursement_id)))
+
+    def change_status_d(self, reimbursement_id):
+        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.change_status_d(reimbursement_id)))

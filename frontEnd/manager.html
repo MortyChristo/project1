@@ -13,35 +13,49 @@
  <!-- Navbar Section -->
  <nav class="navbar">
   <div class="navbar__container">
-    <a href="/frontEnd/index.html" id="navbar__logo">Employee Pay Back</a>
-    <div class="navbar__toggle" id="mobile-menu">
-      <span class="bar"></span> <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
+    <a href="#" id="navbar__logo">Employee Pay Back</a>
+   
     
     <ul class="navbar__menu">
       <li class="navbar__item">
         <a href="#" class="navbar__links" id="logout">Logout</a>
       </li>
       <ul class="navbar__menu">
-        <li class="navbar__item">
-          <a href="/frontEnd/index.html" class="navbar__links" id="home-page">Home</a>
-        </li>
+        
       
-      <li class="navbar__btn">
-        <a href="/frontEnd/login.html" class="button" id="login">Login</a>
-      </li>
+     
     </ul>
   </div>
 </nav>
 <div class="hero" id="home">
   <div class="hero__container">
-    
+    <div style=>
+      <ul>
+        <th>Reimbursement ID: <input id="rid"></th>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <div class="control" style="margin-bottom: 30px" >
+          <label class="radio" >
+            <input type="radio" class="approval" name="approval" value="a" id="a">
+            Approve
+          </label>
+          <label class="radio">
+            <input type="radio" class="approval" name="approval" value="b" id ="b": style="margin-left: 35px">
+            Deny
+          </label>
+          <button style="margin-left: 25px ; margin-top: 20px; height: 30px; width: 115px;" id="submit">Submit</button>
+          
+          
+        </div>
+      </ul>
+    </div>
   <table id="reimbursement-table" style="width:100%">
     <thead>
     <tr>      
       <th><select name="employee_id_box" id="employee_id_box">
-        <option value="Status">Employee ID</option>
+        <option value="Employee ID">Employee ID</option>
 
       </select>
     </th>

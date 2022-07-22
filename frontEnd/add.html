@@ -13,55 +13,55 @@
 
 
 <body>
-    <div class="container has-background-grey-dark">
-        <div class="columns is-justify-content-center">
-            <div class="column is-6 has-background-danger-light">
-                <h1 class="is-size-1 has-text-centered" style="margin-bottom: 60px">Add Registration</h1>
-              <div class="field">
-                  <div class="field">
-                    <label class="label">Type of Reimbursement</label>
-                    <div class="control" style="margin-bottom: 30px">
-                      <label class="radio">
-                        <input type="radio" name="reimbursement-type" value="A">
-                        A. Gas
-                      </label>
-                      <label class="radio" >
-                        <input type="radio" name="reimbursement-type" value="B" style="margin-left: 35px">
-                        B. Travel
-                      </label>
-                      <label class="radio">
-                        <input type="radio" checked name="reimbursement-type" value="C" style="margin-left: 35px">
-                        C. Hotel
-                        <input type="radio" checked name="reimbursement-type" value="D" style="margin-left: 35px">
-                        D. Other
-                      </label>
-                    </div>
-                </div>
-              </div>
-            
-               
-                <div class="field" style="margin-bottom: 30px">
-                    <label class="label">Amount</label>
-                    <div class="control">
-                      <input class="input" type="text" placeholder="$00.00" id="amount">
-                    </div>
-                </div>
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#" id="navbar__logo">Employee Pay Back</a>
+     
+      
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="#" class="navbar__links" id="logout">Logout</a>
+        </li>
+        <ul class="navbar__menu">
+          
+          <li class="navbar__btn">
+            <a href="/frontEnd/employee.html" class="button" id="add">View Reimbursement</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+        
                
 
-                <div class="field" style="margin-bottom: 30px">
-                    <label class="label">Description</label>
-                    <div class="control">
-                      <input class="input" type="text" id="username-input" style="width:max-width;">
-                    </div>
+                <div class="hero" id="home">
+                  <div class="hero__container">
+                    <h1 class="hero__heading" style="margin-bottom: 100px; margin-top: 0px;">Add <span> Reimbursement</span></h1>
+                    <tbody>
+                      <div class="control" style="margin-bottom: 30px">
+                        <label class="radio">
+                          <input type="radio" name="reimbursement-type" value="a">
+                          A. Lodging
+                        </label>
+                        <label class="radio" >
+                          <input type="radio" name="reimbursement-type" value="b" style="margin-left: 35px">
+                          B. Travel
+                        </label>
+                        <label class="radio">
+                          <input type="radio" checked name="reimbursement-type" value="b" style="margin-left: 35px">
+                          C. Food
+                          <input type="radio" checked name="reimbursement-type" value="d" style="margin-left: 35px">
+                          D. Other
+                        </label>
+                      </div>
+                      <ul class="label" style= "color: white; margin-bottom: 20px;">Amount:   <span style="margin-left: 35px"><input class="input" type="text" style="margin-left: 20px" placeholder="$00.00" id="amount-input"></span></ul>
+                      <ul class="label" style= "color: white; margin-bottom: 20px">Description:   <span style="margin-left: 35px"><input class="input" type="text" placeholder="N/A" id="amount-input"></span></ul>
+
+                    </tbody>
+                    <button id="register-submit-btn" class="button" style="width: 100px; margin-top: 40px "><a>Register</a></button>
+                  </div>
                 </div>
 
-
-                </div>
-               
-            </div>
-        </div>
-    </div>
-
+             
     
     <script src="/frontEnd/add.js"></script>
 </body>

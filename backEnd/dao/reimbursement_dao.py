@@ -54,3 +54,23 @@ class ReimbursementDao:
                     employee_list.append(Employee_id(row))
 
                 return employee_list
+
+
+    def change_status_a(self, reimbursement_id):
+        with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
+            with conn.cursor() as cur:
+                cur.execute("UPDATE reimbursements SET status = 'Approved' WHERE reimbursement_ID = %s RETURNING *", (reimbursement_id,))
+                employee_list = []
+                for row in cur:
+                    employee_list.append(Employee_id(row))
+                return employee_list
+
+
+    def change_status_d(self, reimbursement_id):
+        with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
+            with conn.cursor() as cur:
+                cur.execute("UPDATE reimbursements SET status = 'Denied' WHERE reimbursement_ID = %s RETURNING *", (reimbursement_id,))
+                employee_list = []
+                for row in cur:
+                    employee_list.append(Employee_id(row))
+                return employee_list

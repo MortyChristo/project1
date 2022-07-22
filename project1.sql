@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS employee_type_identifier;
 DROP TABLE IF EXISTS reimbursements;
 DROP TABLE IF EXISTS employees;
 
@@ -13,13 +12,6 @@ last_name VARCHAR(20) NOT NULL,
 employee_type INTEGER,
 email_address VARCHAR(200) NOT NULL UNIQUE
 )
-
-
-CREATE TABLE employee_type_identifier(
-id INTEGER PRIMARY KEY,
-employee_type VARCHAR(20)
-)
-
 
 
 CREATE TABLE reimbursements(
@@ -43,9 +35,9 @@ VALUES
 INSERT INTO reimbursements(employee_id, type_of_reimbursement, description, status, amount)
 VALUES 
 (100001, 'd', 'The CLub', 'Pending', 15.50),
-(100001, 'a','', 'Pending', 16.20),
-(100002, 'a', '', 'Pending', 15.20),
-(100002, 'c','', 'Pending',14.00);
+(100001, 'a','', 'Approved', 16.20),
+(100002, 'a', '', 'Denied', 15.20),
+(100002, 'c','', 'Approved',14.00);
 
 
 INSERT INTO employee_type_identifier(id, employee_type)
@@ -65,4 +57,22 @@ SELECT * FROM employees
 SELECT * FROM reimbursements 
 
 SELECT * FROM employee_type_identifier
+
+SELECT * FROM reimbursements
+ORDER BY status DESC;
+
+SELECT employee_id FROM employees
+
+
+UPDATE reimbursements 
+SET status = 'Pending' 
+WHERE reimbursement_ID = 1 RETURNING *
+
+
+
+
+
+
+
+
 

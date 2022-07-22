@@ -11,6 +11,30 @@ rc = Blueprint('reimbursement_controller', __name__)
 reimbursement_service = ReimbursementService()
 employee_service = EmployeeService()
 
+@rc.route("/login/reimbursement/approve/<reimbursement_id>", methods= ['GET'])
+def change_reimbursement_status_a(reimbursement_id):
+    session.clear()
+    try:
+        return {
+         "reimbursement": reimbursement_service.change_status_a(reimbursement_id)
+        }, 201
+    except ReimbursementError as e:
+        return {
+            "messages": str(e)
+        }, 401
+
+@rc.route("/login/reimbursement/deny/<reimbursement_id>", methods= ['GET'])
+def change_reimbursement_status_d(reimbursement_id):
+    session.clear()
+    try:
+        return {
+         "reimbursement": reimbursement_service.change_status_d(reimbursement_id)
+        }, 201
+    except ReimbursementError as e:
+        return {
+            "messages": str(e)
+        }, 401
+
 @rc.route("/login/reimbursement/employee/<employee_id>", methods=['GET'])
 def view_reimbursement(employee_id):
     session.clear()
