@@ -5,8 +5,11 @@ let getStatus = document.getElementById("status");
 let typeElement = document.getElementById("re-type")
 let logoutElement = document.getElementById("logout");
 let eid = localStorage.getItem("employee")
+let poputaleTable = document.getElementById("populate")
 
- document.addEventListener('DOMContentLoaded', grab)
+
+
+ poputaleTable.addEventListener('click', grab)
 
  getStatus.addEventListener("change", filterStatus);
 
@@ -69,20 +72,21 @@ localStorage.clear
 
 function grab() {
 
+     reimbursemenElement.innerHTML = ""
 
-fetch(`http://127.0.0.1:8080/login/reimbursement/employee/${eid}`,{
-   'credentials':'include',
-})
-.then((res) => {
-   data = res.json();
-   return data;
+     fetch(`http://127.0.0.1:8080/login/reimbursement/employee/${eid}`,{
+          'credentials':'include',
+     })
+     .then((res) => {
+          data = res.json();
+          return data;
 
-}).then((data) => {
-   addReimbursementsToTable(data);
+     }).then((data) => {
+          addReimbursementsToTable(data);
 
-}).catch((err) =>{
- console.log(err)
-})
+     }).catch((err) =>{
+          console.log(err)
+     })
 }
 
   
@@ -197,7 +201,7 @@ function filterStatus(){
       
       reimbursemenElement.innerHTML = ""
       
-      fetch('http://127.0.0.1:8080/login/reimbursement/manager/status') //need to sort by date automatically 
+      fetch(`http://127.0.0.1:8080/login/reimbursement/employee/${eid}`) //need to sort by date automatically 
       .then((res) => {
            data = res.json();
            return data;

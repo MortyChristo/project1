@@ -1,4 +1,6 @@
 class RegistrationError(Exception):
     def __init__(self):
-        super().__init__()
+        super(RegistrationError, self).__init__()
         self.messages = []
+    def getMessages(self):
+        return self.messages

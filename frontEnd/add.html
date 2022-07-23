@@ -60,9 +60,13 @@
                           </div>
                         </ul>
                       </div>
-                      <ul class="label" style= "color: white; margin-bottom: 20px;">Amount:   <span style="margin-left: 35px"><input class="input" type="text" style="margin-left: 20px" placeholder="$00.00" id="amount-input"></span></ul>
-                      <ul class="label" style= "color: white; margin-bottom: 20px">Description:   <span style="margin-left: 35px"><input class="input" type="text" placeholder="N/A" id="description-input"></span></ul>
-
+                      <ul class="label" style= "color: white; margin-bottom: 20px; margin-right: 60px;">Amount:   <span style="margin-left: 40px"><input class="input" type="text" style="margin-left: 20px; width: 195px" placeholder="$00.00" id="amount-input"></span></ul>
+                      <ul class="label" style= "color: white; margin-bottom: 20px; margin-right: 60px;">Description:   <span style="margin-left: 35px"><input class="input" style="width: 195px;" type="text" placeholder="N/A" id="description-input"></span></ul>
+                      <form action="/action_page.php">
+                        <label for="img" style="margin-right: 25px;">Select image:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                       
+                      </form>
                     </tbody>
                     <button id="submit-btn" class="button" style="height: 40px;width: 250px; margin-top: 20px "><a>Register</a></button>
                   </div>

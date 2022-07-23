@@ -14,5 +14,5 @@ class Reimbursements:
             "status": self.status,
             "type_of_reimbursement": self.type_of_reimbursement,
             "description": self.description,
-            "reimbursement_id": self.reimbursement_id
+            "reimbursement_id": self.reimbursement_id,
             }

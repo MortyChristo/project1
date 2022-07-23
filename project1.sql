@@ -20,6 +20,7 @@ amount FLOAT,
 status VARCHAR,
 type_of_reimbursement VARCHAR, 
 description VARCHAR DEFAULT 'N/A',
+
 reimbursement_ID SERIAL PRIMARY KEY,
 CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 

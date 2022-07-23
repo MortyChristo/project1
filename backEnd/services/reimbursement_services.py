@@ -1,6 +1,8 @@
+import backend.services.employee_servies
 from backend.dao.reimbursement_dao import ReimbursementDao
 from backend.dao.employee_dao import EmployeeDao
-
+from backend.exception.reimbursement_error import ReimbursementError
+from backend.services.employee_servies import EmployeeService
 
 class ReimbursementService:
     def __init__(self):
@@ -9,8 +11,8 @@ class ReimbursementService:
 
     def add_reimbursement(self, reimbursement_obj):
         new_reimbursement_obj = self.reimbursement_dao.add_reimbursement(reimbursement_obj)
-        #add validation
-
+        if new_reimbursement_obj.amount <= 0:
+            raise ReimbursementError("Amount needs to be positive")
         return new_reimbursement_obj.to_dict()
 
     def view_all_reimbursements(self):

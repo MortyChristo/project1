@@ -4,7 +4,7 @@ from backend.exception.login_error import LoginError
 from backend.exception.registration_error import RegistrationError
 from backend.model.employee import Employee
 from backend.services.employee_servies import EmployeeService
-
+from PIL import Image
 ec = Blueprint("user_controller", __name__)
 employee_service = EmployeeService()
 
@@ -22,7 +22,7 @@ def loginstatus():
     else:
         return {
             "message": "You are not logged in"
-        }, 200
+        }, 400
 
 
 @ec.route('/logout', methods=['POST'])
@@ -43,6 +43,8 @@ def login():
     try:
         employee_dict = employee_service.login(username, password)
         session['employee_dict'] = employee_dict
+
+
         return employee_dict, 200
     except LoginError as e:
         return {

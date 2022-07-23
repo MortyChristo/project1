@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, request, session
 from backend.services.employee_servies import EmployeeService
 import backend.services.reimbursement_services
@@ -5,6 +7,7 @@ from backend.exception.registration_error import RegistrationError
 from backend.services.reimbursement_services import ReimbursementService
 from backend.model.reimbursement import Reimbursements
 from backend.exception.reimbursement_error import ReimbursementError
+import werkzeug
 
 rc = Blueprint('reimbursement_controller', __name__)
 
@@ -37,7 +40,6 @@ def change_reimbursement_status_d(reimbursement_id):
 
 @rc.route("/login/reimbursement/employee/<employee_id>", methods=['GET'])
 def view_reimbursement(employee_id):
-    session.clear()
     try:
         return {
             "reimbursement": reimbursement_service.view_reimbursements_by_id(employee_id)
@@ -108,19 +110,30 @@ def view_employee_id():
 
 @rc.route("/login/reimbursement/add", methods=['POST'])
 def add_reimbursement():
-    request_body_dict = request.get_json()
 
+    data = request.form
+    dict = data.to_dict(flat=False)
+    img = request.files["png"]
 
+    imageFile = img
 
-    employee_id = request_body_dict.get('employee_id')
-    amount = request_body_dict.get('amount')
-    type_of_reimbursement = request_body_dict.get('type_of_reimbursement')
-    description = request_body_dict.get('description')
+    nameFile = img.name
+
+    print(nameFile)
+
+    employee_id = dict['employee_id'][0]
+    amount = dict["amount"][0]
+    type_of_reimbursement = dict['type_of_reimbursement'][0]
+    description = dict['description'][0]
     status = "Pending"
+    print(employee_id)
+    print(amount)
+    print(type_of_reimbursement)
+    print(description)
 
     try:
         reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status, type_of_reimbursement, description, None))
-
+        print(reimbursement_added)
     except RegistrationError as e:  ##Change this error
         return {
             "messages": e.messages

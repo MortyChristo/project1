@@ -4,7 +4,7 @@ let loginButton = document.getElementById('login');
 var enterButton = document.getElementById("username-login-input");
 var enterButton1 = document.getElementById("password-login-input");
 
-sessionStorage.clear
+
 
 enterButton.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
@@ -37,19 +37,22 @@ loginButton.addEventListener('click', async () => {
         })
     let data = await res.json();
     
-    eid = data.employee_id;
-
-    localStorage.setItem("employee", eid)
+    
 
 
     if (res.status == 200) {
         if(data.employee_type == 0){
-            
-            window.location.href = '/frontEnd/employee.html'
+          eid = data.employee_id;
+
+          localStorage.setItem("employee", eid)
+          localStorage.setItem("username", data.username)
+          
+          
+          window.location.href = '/frontEnd/employee.html'
            
         }
         if(data.employee_type == 1){
-            window.location.href = '/frontEnd/manager.html'
+          window.location.href = '/frontEnd/manager.html'
         }
     } else if (res.status == 400) {
         window.alert("Invalid Username/Password")    }
