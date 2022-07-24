@@ -47,8 +47,10 @@ def change_reimbursement_status_d(reimbursement_id):
 def view_reimbursement(employee_id):
     session.clear()
     try:
+        re_obj = reimbursement_service.view_reimbursements_by_id(employee_id)
         return {
-            "reimbursement": reimbursement_service.view_reimbursements_by_id(employee_id)
+            "reimbursement": re_obj
+
         }, 201
     except ReimbursementError as e:
 

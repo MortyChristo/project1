@@ -17,6 +17,6 @@ class Reimbursements:
             "type_of_reimbursement": self.type_of_reimbursement,
             "description": self.description,
             "reimbursement_id": self.reimbursement_id,
-            "imageFile" : self.imageFile,
-            "nameFile" : self.nameFile
+            "imageFile": self.imageFile,
+            "nameFile": self.nameFile
             }

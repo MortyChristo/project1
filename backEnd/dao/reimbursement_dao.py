@@ -1,6 +1,9 @@
+import os
 import psycopg
 from backend.model.reimbursement import Reimbursements
 from backend.model.employee_id import Employee_id
+from pathlib import Path
+
 
 class ReimbursementDao:
     def add_reimbursement(self, reimbursement_obj):
@@ -13,7 +16,7 @@ class ReimbursementDao:
                 reimbursement_row = cur.fetchone()
                 conn.commit()
 
-                return Reimbursements(reimbursement_row[0], reimbursement_row[1], reimbursement_row[2], reimbursement_row[3], reimbursement_row[4], reimbursement_row[5], 0, 0)
+                return Reimbursements(reimbursement_row[0], reimbursement_row[1], reimbursement_row[2], reimbursement_row[3], reimbursement_row[4], reimbursement_row[5], reimbursement_row[6], reimbursement_row[7])
 
     def view_all_reimbursements(self):
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
@@ -26,12 +29,17 @@ class ReimbursementDao:
                 return reimbursement_list
 
     def view_reimbursements(self, employee_id):
+
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres", password="YeMother6") as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM reimbursements WHERE employee_id = %s", (employee_id,))
                 reimbursement_list = []
                 for row in cur:
-                    reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3], row[4], row[5]))
+                    r_dict = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]]
+
+                    reimbursement_list.append(r_dict)
+                    if (open('../frontEnd/receipts/' + str(row[5]) + '.jpeg', 'wb')) is None:
+                        open('../frontEnd/receipts/' + str(row[5]) + '.jpeg', 'wb').write(row[7].encode())
                 return reimbursement_list
 
     def view_all_reimbursements_status(self):
@@ -40,7 +48,11 @@ class ReimbursementDao:
                 cur.execute("SELECT * FROM reimbursements ORDER BY status DESC")
                 reimbursement_list = []
                 for row in cur:
-                    reimbursement_list.append(Reimbursements(row[0], row[1], row[2], row[3], row[4], row[5]))
+                    r_dict = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]]
+
+                    reimbursement_list.append(r_dict)
+                    if (open('../frontEnd/receipts/' + str(row[5]) + '.jpeg', 'wb')) is None:
+                        open('../frontEnd/receipts/' + str(row[5]) + '.jpeg', 'wb').write(row[7].encode())
                 return reimbursement_list
 
 

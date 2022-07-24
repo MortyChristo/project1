@@ -12,15 +12,19 @@ class ReimbursementService:
     def add_reimbursement(self, reimbursement_obj):
 
         new_reimbursement_obj = self.reimbursement_dao.add_reimbursement(reimbursement_obj)
+
         if new_reimbursement_obj.amount <= 0:
             raise ReimbursementError("Amount needs to be positive")
+
         return new_reimbursement_obj.to_dict()
 
     def view_all_reimbursements(self):
         return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_all_reimbursements()))
 
     def view_reimbursements_by_id(self, employee_id):
-        return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_reimbursements(employee_id)))
+        re_obj = self.reimbursement_dao.view_reimbursements(employee_id)
+
+        return re_obj
 
     def view_all_reimbursements_status(self):
         return list(map(lambda a: a.to_dict(), self.reimbursement_dao.view_all_reimbursements_status()))
