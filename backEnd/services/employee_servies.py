@@ -24,14 +24,16 @@ class EmployeeService:
         registration_error = backend.exception.registration_error.RegistrationError()
         self.error_messages = []
 
-        if not (len(employee_obj.employee_id) == 6):
+        if not (len(str(employee_obj.employee_id)) == 6):
             self.error_messages.append("Employee ID must be 6 digits long")
-        if not employee_obj.employee_id.isnumeric():
+            registration_error.messages.append("Employee ID must be 6 digits long")
+        if not str(employee_obj.employee_id).isnumeric():
             self.error_messages.append("Employee ID should only contain numbers")
+            registration_error.messages.append("Employee ID should only contain numbers")
 
-        if not employee_obj.username.isalnum():
-            registration_error.messages.append("Username must only contain alphanumeric characters")
-            self.error_messages.append("Username must only contain alphanumeric characters")
+        if not employee_obj.username.isalpha():
+            registration_error.messages.append("Username must only contain alphabetic characters")
+            self.error_messages.append("Username must only contain alphabetic characters")
         if len(employee_obj.username) < 6 or len(employee_obj.username) > 20:
             registration_error.messages.append("Username must be between 6 and 20 characters in length inclusive")
             self.error_messages.append("Username must be between 6 and 20 characters in length inclusive")

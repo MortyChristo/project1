@@ -14,7 +14,7 @@ def test_add_re_amount_negative(mocker):
 
     reimbursement_obj = Reimbursements(100001, -2, "pending", "a", "n/a", 1)
     def mock_add_reimbursement(self, re_obj):
-        if (reimbursement_obj.amount <= 0):
+        if (re_obj.amount <= 0):
             return reimbursement_obj
         else:
             return None
