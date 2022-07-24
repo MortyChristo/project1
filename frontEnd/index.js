@@ -2,6 +2,10 @@ const menu = document.querySelector('#mobile-menu');
 const menuLinks = document.querySelector('.navbar__menu');
 const navLogo = document.querySelector('#navbar__logo');
 
+
+
+
+
 // Display Mobile Menu
 const mobileMenu = () => {
   menu.classList.toggle('is-active');
@@ -21,20 +25,20 @@ const highlightMenu = () => {
   // console.log(scrollPos);
 
   // adds 'highlight' class to my menu items
-  if (window.innerWidth > 960 && scrollPos < 600) {
-    homeMenu.classList.add('highlight');
-    aboutMenu.classList.remove('highlight');
-    return;
-  } else if (window.innerWidth > 960 && scrollPos < 1400) {
-    aboutMenu.classList.add('highlight');
-    homeMenu.classList.remove('highlight');
-    servicesMenu.classList.remove('highlight');
-    return;
-  } else if (window.innerWidth > 960 && scrollPos < 2345) {
-    servicesMenu.classList.add('highlight');
-    aboutMenu.classList.remove('highlight');
-    return;
-  }
+  // if (window.innerWidth > 960 && scrollPos < 600) {
+  //   homeMenu.classList.add('highlight');
+  //   aboutMenu.classList.remove('highlight');
+  //   return;
+  // } else if (window.innerWidth > 960 && scrollPos < 1400) {
+  //   aboutMenu.classList.add('highlight');
+  //   homeMenu.classList.remove('highlight');
+  //   servicesMenu.classList.remove('highlight');
+  //   return;
+  // } else if (window.innerWidth > 960 && scrollPos < 2345) {
+  //   servicesMenu.classList.add('highlight');
+  //   aboutMenu.classList.remove('highlight');
+  //   return;
+  // }
 
   if ((elem && window.innerWIdth < 960 && scrollPos < 600) || elem) {
     elem.classList.remove('highlight');
@@ -56,7 +60,15 @@ const hideMobileMenu = () => {
 menuLinks.addEventListener('click', hideMobileMenu);
 navLogo.addEventListener('click', hideMobileMenu);
 
-
-
-
+function registerPage(){
+  if (localStorage == null){
+    window.location.href="/frontEnd/registration.html"
+  }
+  else if (localStorage.getItem("employee_type") == 0){ 
+    location.window.href = "/frontEnd/employee.html"
+  }
+  else if (localStorage.getItem("employee_type") == 1){
+    location.window.href = "/frontEnd/manager.html"
+  }
+}
 

@@ -4,7 +4,19 @@ let loginButton = document.getElementById('login');
 var enterButton = document.getElementById("username-login-input");
 var enterButton1 = document.getElementById("password-login-input");
 
+document.addEventListener('DOMContentLoaded', loginstatus)
 
+
+
+function loginstatus(){
+    
+     if (localStorage.getItem("employee_type") == 0){
+          window.location.href = '/frontEnd/employee.html'
+     }
+     else if (localStorage.getItem("employee_type") == 1){
+      window.location.href = '/frontEnd/manager.html'
+ }
+}
 
 enterButton.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
@@ -41,18 +53,16 @@ loginButton.addEventListener('click', async () => {
 
 
     if (res.status == 200) {
-        if(data.employee_type == 0){
-          eid = data.employee_id;
+      eid = data.employee_id;
 
-          localStorage.setItem("employee", eid)
-          localStorage.setItem("username", data.username)
-          
-          
-          window.location.href = '/frontEnd/employee.html'
-           
-        }
-        if(data.employee_type == 1){
-          window.location.href = '/frontEnd/manager.html'
+      localStorage.setItem("employee", eid)
+      localStorage.setItem("username", data.username)
+      localStorage.setItem("employee_type", data.employee_type)
+      if(data.employee_type == 0){
+        window.location.href = '/frontEnd/employee.html'
+      }
+      if(data.employee_type == 1){
+        window.location.href = '/frontEnd/manager.html'
         }
     } else if (res.status == 400) {
         window.alert("Invalid Username/Password")    }

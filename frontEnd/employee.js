@@ -8,7 +8,6 @@ let eid = localStorage.getItem("employee")
 let poputaleTable = document.getElementById("populate")
 
 
-
  poputaleTable.addEventListener('click', grab)
 
  getStatus.addEventListener("change", filterStatus);
@@ -17,7 +16,17 @@ let poputaleTable = document.getElementById("populate")
 
  logoutElement.addEventListener("click", logout)
 
+document.addEventListener('DOMContentLoaded', loginstatus)
 
+
+
+function loginstatus(){
+    
+     if (localStorage.length == 0){
+          window.location.href = '/frontEnd/login.html'
+     }
+
+}
 
 
 
@@ -66,7 +75,6 @@ while(i < reimbursement_obj.reimbursement.length){
             reimbursemenElement.appendChild(row);
    i++; 
 }
-localStorage.clear
 }    
 
 
@@ -83,7 +91,8 @@ function grab() {
 
      }).then((data) => {
           addReimbursementsToTable(data);
-
+          controller.abort();
+          
      }).catch((err) =>{
           console.log(err)
      })
@@ -103,8 +112,9 @@ function logout(){
        return data
   }).then((data) => {
        if (data==200){
-            window.location.href = '/frontEnd/login.html'
-            window.alert("Logout Successful")
+          localStorage.clear();
+          window.location.href = '/frontEnd/login.html'
+          window.alert("Logout Successful")
        }
   })
 }

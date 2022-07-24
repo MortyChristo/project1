@@ -23,10 +23,21 @@
    
     logoutElement.addEventListener("click", logout)
 
+    document.addEventListener('DOMContentLoaded', loginstatus)
 
 
 
-function logout(){
+    function loginstatus(){
+        
+         if (localStorage.length == 0){
+              window.location.href = '/frontEnd/login.html'
+         }
+    
+    }
+
+
+
+    function logout(){
      fetch('http://127.0.0.1:8080/logout',{
           'method':'POST'
      })
@@ -35,11 +46,14 @@ function logout(){
           return data
      }).then((data) => {
           if (data==200){
-               window.location.href = '/frontEnd/login.html'
-               window.alert("Logout Successful")
+             localStorage.clear();
+             window.location.href = '/frontEnd/login.html'
+             window.alert("Logout Successful")
           }
      })
-}
+   }
+   
+   
 
 
 function approval(){

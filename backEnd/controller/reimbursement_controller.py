@@ -14,9 +14,10 @@ rc = Blueprint('reimbursement_controller', __name__)
 reimbursement_service = ReimbursementService()
 employee_service = EmployeeService()
 
+
 @rc.route("/login/reimbursement/approve/<reimbursement_id>", methods= ['GET'])
 def change_reimbursement_status_a(reimbursement_id):
-    session.clear()
+
     try:
         return {
          "reimbursement": reimbursement_service.change_status_a(reimbursement_id)
@@ -26,9 +27,10 @@ def change_reimbursement_status_a(reimbursement_id):
             "messages": str(e)
         }, 401
 
+
 @rc.route("/login/reimbursement/deny/<reimbursement_id>", methods= ['GET'])
 def change_reimbursement_status_d(reimbursement_id):
-    session.clear()
+
     try:
         return {
          "reimbursement": reimbursement_service.change_status_d(reimbursement_id)
@@ -38,8 +40,10 @@ def change_reimbursement_status_d(reimbursement_id):
             "messages": str(e)
         }, 401
 
+
 @rc.route("/login/reimbursement/employee/<employee_id>", methods=['GET'])
 def view_reimbursement(employee_id):
+    session.clear()
     try:
         return {
             "reimbursement": reimbursement_service.view_reimbursements_by_id(employee_id)
@@ -49,10 +53,6 @@ def view_reimbursement(employee_id):
          return {
           "messages": str(e)
          }, 401
-
-
-
-
 
 
 @rc.route("/login/reimbursement/manager", methods=['GET'])
@@ -70,7 +70,6 @@ def view_all_reimbursement():
          return {
           "messages": str(e)
          }, 401
-
 
 
 @rc.route("/login/reimbursement/manager/status", methods=['GET'])
@@ -105,7 +104,6 @@ def view_employee_id():
          return {
           "messages": str(e)
          }, 401
-
 
 
 @rc.route("/login/reimbursement/add", methods=['POST'])

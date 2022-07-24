@@ -6,6 +6,18 @@ let imgData = document.getElementById("img")
 
 submitButton.addEventListener('click', add);
 
+document.addEventListener('DOMContentLoaded', loginstatus)
+
+
+
+function loginstatus(){
+    
+     if (localStorage.length == 0){
+          window.location.href = '/frontEnd/login.html'
+     }
+
+}
+
 function add(){ 
     let img = imgData.value
 
