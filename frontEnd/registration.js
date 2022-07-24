@@ -8,7 +8,11 @@ let registrationSubmitButton = document.getElementById('register-submit-btn');
 
 
 registrationSubmitButton.addEventListener('click', async () => {
-    
+    console.log(emailInput.value)
+
+
+
+
     let res = await fetch('http://127.0.0.1:8080/login/register', {
           
             'method': 'POST',
@@ -27,10 +31,11 @@ registrationSubmitButton.addEventListener('click', async () => {
             })
         })
     let data = await res.json();
-
+    console.log(data.res)
     if (res.status == 200) {
 
         window.alert("Account Successfully Created")
+        window.location.href="/frontEnd/login.html"
     
     } 
     else if (res.status == 400) {

@@ -1,5 +1,5 @@
 import json
-
+import numpy
 from flask import Blueprint, request, session
 from backend.services.employee_servies import EmployeeService
 import backend.services.reimbursement_services
@@ -17,6 +17,7 @@ employee_service = EmployeeService()
 
 @rc.route("/login/reimbursement/approve/<reimbursement_id>", methods= ['GET'])
 def change_reimbursement_status_a(reimbursement_id):
+    session.clear()
 
     try:
         return {
@@ -30,6 +31,7 @@ def change_reimbursement_status_a(reimbursement_id):
 
 @rc.route("/login/reimbursement/deny/<reimbursement_id>", methods= ['GET'])
 def change_reimbursement_status_d(reimbursement_id):
+    session.clear()
 
     try:
         return {
@@ -109,29 +111,31 @@ def view_employee_id():
 @rc.route("/login/reimbursement/add", methods=['POST'])
 def add_reimbursement():
 
+
     data = request.form
     dict = data.to_dict(flat=False)
-    img = request.files["png"]
+    img = request.files['png']
+    print(type(img))
 
-    imageFile = img
-
+    imageFile = img.read()
+    # print(imageFile)
+    # print(img.read())#important
     nameFile = img.name
+    totalfile = img
 
-    print(nameFile)
+    # print(imageFile)
+
 
     employee_id = dict['employee_id'][0]
     amount = dict["amount"][0]
     type_of_reimbursement = dict['type_of_reimbursement'][0]
     description = dict['description'][0]
     status = "Pending"
-    print(employee_id)
-    print(amount)
-    print(type_of_reimbursement)
-    print(description)
+
 
     try:
-        reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status, type_of_reimbursement, description, None))
-        print(reimbursement_added)
+
+        reimbursement_added =   reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status, type_of_reimbursement, description, None, imageFile, nameFile))
     except RegistrationError as e:  ##Change this error
         return {
             "messages": e.messages

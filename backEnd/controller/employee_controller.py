@@ -1,10 +1,11 @@
 from flask import Blueprint, request, session
-from flask_session import Session
 from backend.exception.login_error import LoginError
 from backend.exception.registration_error import RegistrationError
 from backend.model.employee import Employee
 from backend.services.employee_servies import EmployeeService
-from PIL import Image
+import bcrypt
+import PIL
+
 ec = Blueprint("user_controller", __name__)
 employee_service = EmployeeService()
 
@@ -36,6 +37,8 @@ def logout():
 
 @ec.route('/login', methods=['POST'])
 def login():
+
+
     request_body_dict = request.get_json()
     username = request_body_dict['username']
     password = request_body_dict['password']
@@ -44,7 +47,7 @@ def login():
         employee_dict = employee_service.login(username, password)
         session['employee_dict'] = employee_dict
 
-
+        print(employee_dict)
         return employee_dict, 200
     except LoginError as e:
         return {
@@ -53,16 +56,15 @@ def login():
 
 @ec.route("/login/register", methods=['POST'])
 def register_employee():
-
     request_body_dict = request.get_json()
 
-    employee_id = request_body_dict.get('employee_id')
-    username = request_body_dict.get('username')
-    password = request_body_dict.get('password')
-    first_name = request_body_dict.get('first_name')
-    last_name = request_body_dict.get('last_name')
-    email_address = request_body_dict.get('email_address')
+    employee_id = request_body_dict['employee_id']
+    username = request_body_dict['username']
+    password = request_body_dict['employee_password']
 
+    first_name = request_body_dict['first_name']
+    last_name = request_body_dict['last_name']
+    email_address = request_body_dict['email_address']
 
     try:
 

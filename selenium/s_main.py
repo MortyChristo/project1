@@ -50,13 +50,6 @@ registerBtn.click()
 # alertObj2.accept()
 # time.sleep(1)
 #
-# #
-# #
-# # #add case for double user
-# #
-# #
-# #
-#
 #
 # idInput = driver.find_element(By.ID, "employee-id-input")
 # idInput.send_keys("123456")

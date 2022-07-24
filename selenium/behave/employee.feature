@@ -16,6 +16,15 @@ Feature: Employee
     Given that I am at the employee page
     When I click the populate table Button
     Then I should be given all reimbursements submitted by user logged in
+    And those reimbursements should have information like an id
+    And an amount
+    And a reimbursement type
+    And a description
+    And a status
+    And a submittied timestamp
+    And an Approved timestamp
+    And an image file
+    And who it was approved by
 
   Scenario: Loading page and not logged in
     Given that I try to access the employee page

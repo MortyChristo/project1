@@ -91,37 +91,48 @@ function grab() {
 
      }).then((data) => {
           addReimbursementsToTable(data);
-          controller.abort();
           
      }).catch((err) =>{
           console.log(err)
      })
 }
+    function logout(){
+     fetch('http://127.0.0.1:8080/logout',{
+          'method':'POST'
+     })
+     .then((res) => {
+          data = res.status;
+          return data
+     }).then((data) => {
+          if (data==200){
+             localStorage.clear();
+             window.location.href = '/frontEnd/login.html'
+             window.alert("Logout Successful")
+          }
+     })
+   }
 
   
 
 
 
 
-function logout(){
-  fetch('http://127.0.0.1:8080/logout',{
-       'method':'POST'
-  })
-  .then((res) => {
-       data = res.status;
-       return data
-  }).then((data) => {
-       if (data==200){
-          localStorage.clear();
-          window.location.href = '/frontEnd/login.html'
-          window.alert("Logout Successful")
-       }
-  })
-}
 
-
-
-       
+   function logout(){
+     fetch('http://127.0.0.1:8080/logout',{
+          'method':'POST'
+     })
+     .then((res) => {
+          data = res.status;
+          return data
+     }).then((data) => {
+          if (data==200){
+             localStorage.clear();
+             window.location.href = '/frontEnd/login.html'
+             window.alert("Logout Successful")
+          }
+     })
+   }
  
  
 function filterStatus(){
