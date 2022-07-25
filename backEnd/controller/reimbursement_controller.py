@@ -15,28 +15,18 @@ reimbursement_service = ReimbursementService()
 employee_service = EmployeeService()
 
 
-@rc.route("/login/reimbursement/approve/<reimbursement_id>", methods= ['GET'])
-def change_reimbursement_status_a(reimbursement_id):
-    session.clear()
+@rc.route("/login/reimbursement/status-change", methods= ['PUT'])
+def change_reimbursement_status_d():
+    json_dictionary = request.get_json()
+    rid = json_dictionary['reimbursement_id']
+    resolver = json_dictionary['resolver_id']
+    change_to = json_dictionary['status']
 
     try:
         return {
-         "reimbursement": reimbursement_service.change_status_a(reimbursement_id)
+         "reimbursement": reimbursement_service.change_status_d(rid, resolver, change_to)
         }, 201
-    except ReimbursementError as e:
-        return {
-            "messages": str(e)
-        }, 401
 
-
-@rc.route("/login/reimbursement/deny/<reimbursement_id>", methods= ['GET'])
-def change_reimbursement_status_d(reimbursement_id):
-    session.clear()
-
-    try:
-        return {
-         "reimbursement": reimbursement_service.change_status_d(reimbursement_id)
-        }, 201
     except ReimbursementError as e:
         return {
             "messages": str(e)
@@ -45,88 +35,56 @@ def change_reimbursement_status_d(reimbursement_id):
 
 @rc.route("/login/reimbursement/employee/<employee_id>", methods=['GET'])
 def view_reimbursement(employee_id):
-    session.clear()
     try:
         re_obj = reimbursement_service.view_reimbursements_by_id(employee_id)
         return {
             "reimbursement": re_obj
 
         }, 201
+
     except ReimbursementError as e:
-
-         return {
-          "messages": str(e)
-         }, 401
-
-
-@rc.route("/login/reimbursement/manager", methods=['GET'])
-def view_all_reimbursement():
-    session.clear()
-    try:
-        reimbursement_dict = reimbursement_service.view_all_reimbursements()
-
-
         return {
-            "reimbursement": reimbursement_dict
-               }, 200
-
-    except ReimbursementError as e:
-         return {
-          "messages": str(e)
+            "messages": str(e)
          }, 401
 
 
 @rc.route("/login/reimbursement/manager/status", methods=['GET'])
 def view_all_reimbursement_status():
-    session.clear()
     try:
         reimbursement_dict = reimbursement_service.view_all_reimbursements_status()
-
+        print(type(reimbursement_dict))
 
         return {
             "reimbursement": reimbursement_dict
                }, 200
 
     except ReimbursementError as e:
-         return {
+        return {
           "messages": str(e)
          }, 401
 
 
 @rc.route("/login/reimbursement/manager/employee", methods=['GET'])
 def view_employee_id():
-    session.clear()
     try:
         reimbursement_dict = reimbursement_service.view_employee()
-
-
         return {
             "reimbursement": reimbursement_dict
                }, 200
 
     except ReimbursementError as e:
-         return {
-          "messages": str(e)
+        return {
+            "messages": str(e)
          }, 401
 
 
 @rc.route("/login/reimbursement/add", methods=['POST'])
 def add_reimbursement():
-
-
     data = request.form
     dict = data.to_dict(flat=False)
     img = request.files['png']
-    print(type(img))
-
     imageFile = img.read()
-    # print(imageFile)
-    # print(img.read())#important
     nameFile = img.name
-    totalfile = img
-
-    # print(imageFile)
-
 
     employee_id = dict['employee_id'][0]
     amount = dict["amount"][0]
@@ -134,10 +92,12 @@ def add_reimbursement():
     description = dict['description'][0]
     status = "Pending"
 
-
     try:
 
-        reimbursement_added =   reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status, type_of_reimbursement, description, None, imageFile, nameFile))
+        reimbursement_added =   reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status,
+                                                                                       type_of_reimbursement, description,
+                                                                                       None, "N/A", "N/A",
+                                                                                       "N/A", imageFile, nameFile))
     except RegistrationError as e:  ##Change this error
         return {
             "messages": e.messages
