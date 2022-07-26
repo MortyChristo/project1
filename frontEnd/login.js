@@ -12,7 +12,7 @@ function loginstatus() {
   } else if (localStorage.getItem("employee_type") == 1) {
     window.location.href = "/frontEnd/manager.html";
   } else {
-    sessionStorage.clear();
+    localStorage.clear();
   }
 }
 

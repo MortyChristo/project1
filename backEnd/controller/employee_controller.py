@@ -37,13 +37,7 @@ def logout():
 
 @ec.route('/login/<username>/<password>', methods=['GET'])
 def login(username, password):
-    # uname = username
-    # pword = password
 
-
-    # request_body_dict = request.get_json()
-    # username = request_body_dict['username']
-    # password = request_body_dict['password']
     try:
         employee_dict = employee_service.login(username, password)
         session['username'] = username
@@ -56,6 +50,7 @@ def login(username, password):
 
 @ec.route("/login/register", methods=['POST'])
 def register_employee():
+    session.clear()
     request_body_dict = request.get_json()
     if request_body_dict is not None:
         employee_id = request_body_dict['employee_id']

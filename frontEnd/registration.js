@@ -6,7 +6,7 @@ let lastNameInput = document.getElementById('lastname-input');
 let emailInput = document.getElementById('email-input');
 let registrationSubmitButton = document.getElementById('register-submit-btn');
 
-document.addEventListener('DOMContentLoaded', loginstatus)
+// document.addEventListener('loaded', loginstatus)
 
 
 function loginstatus(){
@@ -45,17 +45,17 @@ registrationSubmitButton.addEventListener('click', async () => {
             }),
         })
     
-    
+    localStorage.clear
     let data = await res.json();
 
 
     if (res.status == 200) {
-        window.alert("Account Successfully Created")
+        alert("Account successfully created")
+        window.location.href="/frontEnd/login/html"
     } 
 
     else if(res.status == 400) {
         
-        let registrationErrorMessagesDiv = document.getElementById('registration-error-messages')
         let errorMessages = data.messages;
         let errorString = ""
         for (i=0; i < errorMessages.length; i++) {

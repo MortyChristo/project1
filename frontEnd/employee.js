@@ -68,9 +68,6 @@ function addReimbursementsToTable() {
     let rvCell = document.createElement("td");
     let setCount = 0
 
-//     let imgName = document.createElement("td");
-//     let imgCell = document.createElement("td");
-
     idCell.innerHTML = parsedReim[i][0];
     allId[i] = parsedReim[i][0]
     aCell.innerHTML = "$" + parseFloat(parsedReim[i][1]).toFixed(2);
@@ -102,10 +99,12 @@ function addReimbursementsToTable() {
     } else if (parsedReim[i][8] != null) {
       rvCell.innerHTML = parsedReim[i][8];
     }
+    let anchorCell = document.createElement("a")
+    let imgCell = document.createElement("td");
 
-    // imgName.innerHTML = parsedReim[i][9];
-    // imgCell.innerHTML = JSON.stringify(parsedReim[i][10]);
-
+    anchorCell.setAttribute('href', parsedReim[i][9])
+    anchorCell.innerText = "Reciept"
+    imgCell.appendChild(anchorCell);
     row.appendChild(ridCell);
     row.appendChild(aCell);
     row.appendChild(typeCell);
@@ -114,8 +113,7 @@ function addReimbursementsToTable() {
     row.appendChild(ctsCell);
     row.appendChild(rtsCell);
     row.appendChild(rvCell);
-    //   row.appendChild(imgName);
-    //   row.appendChild(imgCell);
+      row.appendChild(imgCell);
 
     reimbursemenElement.appendChild(row);
     i++;
@@ -145,14 +143,6 @@ async function grab() {
     console.log(err)
   }
   }
-
-
-   
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
 
 
 
@@ -186,8 +176,6 @@ function addReimbursementsToTablebyStatus(){
          let ctsCell = document.createElement("td");
          let rtsCell = document.createElement("td");
          let rvCell = document.createElement("td");
-       //   let imgName = document.createElement("td");
-       //   let imgCell = document.createElement("td");
          
      if (parsedReim[i][2] == statusValue){
        console.log(parsedReim[i][2])
@@ -221,9 +209,12 @@ function addReimbursementsToTablebyStatus(){
          } else if (parsedReim[i][8] != null) {
            rvCell.innerHTML = parsedReim[i][8];
          }
+         let anchorCell = document.createElement("a")
+         let imgCell = document.createElement("td");
      
-       //   imgName.innerHTML = parsedReim[i][9];
-       //   imgCell.innerHTML = JSON.stringify(parsedReim[i][10]);
+         anchorCell.setAttribute('href', parsedReim[i][9])
+         anchorCell.innerText = "Reciept"
+         imgCell.appendChild(anchorCell);
      
          row.appendChild(ridCell);
          row.appendChild(aCell);
@@ -233,8 +224,7 @@ function addReimbursementsToTablebyStatus(){
          row.appendChild(ctsCell);
          row.appendChild(rtsCell);
          row.appendChild(rvCell);
-       //     row.appendChild(imgName);
-       //     row.appendChild(imgCell);
+         row.appendChild(imgCell);
      
          reimbursemenElement.appendChild(row);
          
@@ -273,8 +263,6 @@ function addReimbursementsToTablebytype(){
          let ctsCell = document.createElement("td");
          let rtsCell = document.createElement("td");
          let rvCell = document.createElement("td");
-       //   let imgName = document.createElement("td");
-       //   let imgCell = document.createElement("td");
          
      if (parsedReim[i][3] == typeElement.value){
          idCell.innerHTML = parsedReim[i][0];
@@ -307,10 +295,12 @@ function addReimbursementsToTablebytype(){
          } else if (parsedReim[i][8] != null) {
            rvCell.innerHTML = parsedReim[i][8];
          }
+         let anchorCell = document.createElement("a")
+         let imgCell = document.createElement("td");
      
-       //   imgName.innerHTML = parsedReim[i][9];
-       //   imgCell.innerHTML = JSON.stringify(parsedReim[i][10]);
-     
+         anchorCell.setAttribute('href', parsedReim[i][9])
+         anchorCell.innerText = "Reciept"
+         imgCell.appendChild(anchorCell);
          row.appendChild(ridCell);
          row.appendChild(aCell);
          row.appendChild(typeCell);
@@ -319,8 +309,7 @@ function addReimbursementsToTablebytype(){
          row.appendChild(ctsCell);
          row.appendChild(rtsCell);
          row.appendChild(rvCell);
-       //     row.appendChild(imgName);
-       //     row.appendChild(imgCell);
+           row.appendChild(imgCell);
      
          reimbursemenElement.appendChild(row);
          

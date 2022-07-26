@@ -4,6 +4,8 @@ let submitButton = document.getElementById('submit-btn');
 let eid = localStorage.getItem("employee")
 let imgData = document.getElementById("img")
 
+
+
 submitButton.addEventListener('click', add);
 
 //document.addEventListener('DOMContentLoaded', loginstatus)
@@ -19,6 +21,8 @@ function loginstatus(){
 }
 
 function add(){ 
+    const formData = new FormData();
+
     let img = imgData.value
 
     
@@ -30,26 +34,22 @@ function add(){
              break;
             }
     }
-
-    fetch(`http://127.0.0.1:8080//login/reimbursement/add`, {
-        'Access-Control-Allow-Origin': '*',
+    
+    formData.append("employee_id", eid)
+    
+    
+    formData.append("amount", amountInput.value)
+    formData.append("type_of_reimbursement", sessionStorage.getItem("value"))
+    formData.append("description", descriptionInput.value)
+    formData.append("img", imgData.files[0])
+    console.log(imgData.value, imgData.files[0])
+fetch(`http://127.0.0.1:8080//login/reimbursement/add`, {
         'method': 'POST',
         'credentials':'include',
-        'headers': {
-            'Content-Type': 'application/json'
-            
-        },
-        'body': JSON.stringify({
-            "employee_id": eid,
-            "amount": amountInput.value,
-            "type_of_reimbursement": sessionStorage.getItem("value"),
-            "description": descriptionInput.value
-            }//,
-        //'body'
-        )
-      
-        }).then((res) =>{
+        'body': formData,
 
+        }).then((res) =>{
+    
             data = res.status;
             return data;
         }).then((data) => {

@@ -69,6 +69,7 @@ def view_all_reimbursement_status():
 def view_employee_id():
     try:
         reimbursement_dict = reimbursement_service.view_employee()
+
         return {
             "reimbursement": reimbursement_dict
                }, 200
@@ -83,23 +84,29 @@ def view_employee_id():
 def add_reimbursement():
     data = request.form
     dict = data.to_dict(flat=False)
-    img = request.files['png']
-    imageFile = img.read()
-    nameFile = img.name
+    print(dict)
+
+    img = request.files['img']
+    image = img
+    print(image)
+
 
     employee_id = dict['employee_id'][0]
+
     amount = dict["amount"][0]
     type_of_reimbursement = dict['type_of_reimbursement'][0]
     description = dict['description'][0]
     status = "Pending"
 
+
     try:
 
-        reimbursement_added =   reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status,
-                                                                                       type_of_reimbursement, description,
-                                                                                       None, "N/A", "N/A",
-                                                                                       "N/A", imageFile, nameFile))
-    except RegistrationError as e:  ##Change this error
+        reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status,
+                                                                                     type_of_reimbursement, description,
+                                                                                     None, "N/A", "N/A",
+                                                                                     "N/A", None), img)
+
+    except RegistrationError as e:
         return {
             "messages": e.messages
         }, 400
@@ -107,6 +114,3 @@ def add_reimbursement():
     return {
                "reimbursement_added": reimbursement_added
            }, 201
-
-
-
