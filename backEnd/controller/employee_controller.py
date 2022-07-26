@@ -35,19 +35,19 @@ def logout():
     }, 200
 
 
-@ec.route('/login', methods=['POST'])
-def login():
+@ec.route('/login/<username>/<password>', methods=['GET'])
+def login(username, password):
+    # uname = username
+    # pword = password
 
 
-    request_body_dict = request.get_json()
-    username = request_body_dict['username']
-    password = request_body_dict['password']
-
+    # request_body_dict = request.get_json()
+    # username = request_body_dict['username']
+    # password = request_body_dict['password']
     try:
         employee_dict = employee_service.login(username, password)
-        session['employee_dict'] = employee_dict
-
-        print(employee_dict)
+        session['username'] = username
+        session['password'] = password
         return employee_dict, 200
     except LoginError as e:
         return {
@@ -57,14 +57,13 @@ def login():
 @ec.route("/login/register", methods=['POST'])
 def register_employee():
     request_body_dict = request.get_json()
-
-    employee_id = request_body_dict['employee_id']
-    username = request_body_dict['username']
-    password = request_body_dict['employee_password']
-
-    first_name = request_body_dict['first_name']
-    last_name = request_body_dict['last_name']
-    email_address = request_body_dict['email_address']
+    if request_body_dict is not None:
+        employee_id = request_body_dict['employee_id']
+        username = request_body_dict['username']
+        password = request_body_dict['employee_password']
+        first_name = request_body_dict['first_name']
+        last_name = request_body_dict['last_name']
+        email_address = request_body_dict['email_address']
 
     try:
 

@@ -37,8 +37,8 @@ class ReimbursementDao:
 
                     reimbursement_list.append(r_dict)
 
-                    if (open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpeg', 'wb')) is None:
-                        open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpeg', 'wb').write(
+                    if (open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpg', 'wb')) is None:
+                        open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpg', 'wb').write(
                             reimbursement_row[9].encode())
 
                 return reimbursement_list
@@ -50,14 +50,15 @@ class ReimbursementDao:
                 reimbursement_list = []
                 for reimbursement_row in cur:
 
+                    pic = open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpeg', 'wb').write(
+                            reimbursement_row[9].encode())
                     r_dict = [reimbursement_row[0], reimbursement_row[1], reimbursement_row[2], reimbursement_row[3],
                               reimbursement_row[4], reimbursement_row[5], reimbursement_row[6], reimbursement_row[7],
-                              reimbursement_row[8], reimbursement_row[10]]
+                              reimbursement_row[8], pic, reimbursement_row[10]]
 
                     reimbursement_list.append(r_dict)
 
-                    if (open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpeg', 'wb')) is None:
-                        open('../frontEnd/receipts/' + str(reimbursement_row[5]) + '.jpeg', 'wb').write(reimbursement_row[9].encode())
+
 
                 return reimbursement_list
 

@@ -6,39 +6,54 @@ let lastNameInput = document.getElementById('lastname-input');
 let emailInput = document.getElementById('email-input');
 let registrationSubmitButton = document.getElementById('register-submit-btn');
 
+document.addEventListener('DOMContentLoaded', loginstatus)
+
+
+function loginstatus(){
+    
+    if (localStorage.getItem("employee_type") == 0){
+         window.location.href = '/frontEnd/employee.html'
+    }
+    else if (localStorage.getItem("employee_type") == 1){
+     window.location.href = '/frontEnd/manager.html'
+    }
+    else {
+      sessionStorage.clear() 
+     }
+}
+
+
 
 registrationSubmitButton.addEventListener('click', async () => {
-    console.log(emailInput.value)
-
-
-
-
-    let res = await fetch('http://127.0.0.1:8080/login/register', {
-          
+   
+    let res = await fetch(`http://127.0.0.1:8080/login/register`, {
+            
             'method': 'POST',
             'credentials':'include',
             'headers': {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*'
                 
             },
             'body': JSON.stringify({
                 "employee_id":employeeIdInput.value,
                 "username": usernameInput.value,
-                "password": passwordInput.value,
+                "employee_password": passwordInput.value,
                 "first_name": firstNameInput.value,
                 "last_name": lastNameInput.value,
                 "email_address": emailInput.value
-            })
+            }),
         })
-    let data = await res.json();
-    console.log(data.res)
-    if (res.status == 200) {
-
-        window.alert("Account Successfully Created")
-        window.location.href="/frontEnd/login.html"
     
+    
+    let data = await res.json();
+
+
+    if (res.status == 200) {
+        window.alert("Account Successfully Created")
     } 
-    else if (res.status == 400) {
+
+    else if(res.status == 400) {
         
         let registrationErrorMessagesDiv = document.getElementById('registration-error-messages')
         let errorMessages = data.messages;
@@ -47,6 +62,6 @@ registrationSubmitButton.addEventListener('click', async () => {
             errorString = errorString + errorMessages[i] +"\n"  
         }
         window.alert(errorString)
-
     }
+    
 });

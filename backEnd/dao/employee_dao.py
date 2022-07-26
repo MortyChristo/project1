@@ -22,9 +22,6 @@ class EmployeeDao:
                     return None
                 emcodedPass = password.encode()
 
-                print(emcodedPass)
-                print(user_info[2])
-
                 if (bcrypt.checkpw(emcodedPass, user_info[2].encode())):
 
                     employee_id = user_info[0]
@@ -39,17 +36,14 @@ class EmployeeDao:
                 else:
                     return None
     def add_employee(self, employee_obj):
-
         password = employee_obj.employee_password
-        print(password)
-        salt = bcrypt.gensalt()
-
-        bytePass = password.encode()
-        hashed = bcrypt.hashpw(bytePass, salt)
-        print(hashed)
-
-        hashed2 = hashed.decode()
-
+        if (employee_obj.employee_password != ""):
+            salt = bcrypt.gensalt()
+            bytePass = password.encode()
+            hashed = bcrypt.hashpw(bytePass, salt)
+            hashed2 = hashed.decode()
+        else:
+            hashed2 = ""
 
         with psycopg.connect(host="127.0.0.1", port="5432", dbname="postgres", user="postgres",
                              password="YeMother6") as conn:

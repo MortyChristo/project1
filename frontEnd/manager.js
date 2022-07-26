@@ -1,449 +1,503 @@
-
-     
-   let logoutBtn = document.querySelector('#logout')
-   let reimbursemenElement = document.querySelector('#reimbursement-table tbody');
-   let getStatus = document.getElementById("status");
-   let employeeElement = document.querySelector('#employee_id_box');
-   let typeElement = document.getElementById("re-type")
-   let logoutElement = document.getElementById("logout");
-   let newNav = document.getElementById("navbar_logo")
-   let submitBtn = document.getElementById("submit")
-  
-    submitBtn.addEventListener('click', approval);
-
-    document.addEventListener('DOMContentLoaded', grab);
-
-    getStatus.addEventListener("change", filterStatus);
-
-    document.addEventListener("DOMContentLoaded", getId);
-
-    employeeElement.addEventListener("change", filter_employee);
-
-    typeElement.addEventListener("change", filter_type)
-   
-    logoutElement.addEventListener("click", logout)
-
-    document.addEventListener('DOMContentLoaded', loginstatus)
+let logoutBtn = document.querySelector("#logout");
+let reimbursemenElement = document.querySelector("#reimbursement-table tbody");
+let getStatus = document.getElementById("status");
+let employeeElement = document.querySelector("#employee_id_box");
+let typeElement = document.getElementById("re-type");
+let logoutElement = document.getElementById("logout");
+let newNav = document.getElementById("navbar_logo");
+let submitBtn = document.getElementById("submit");
 
 
+let populate = document.getElementById("populate");
+populate.addEventListener("click", grab);
 
-    function loginstatus(){
-        
-         if (localStorage.length == 0){
-              window.location.href = '/frontEnd/login.html'
-         }
-    
-    }
+document.addEventListener('DOMContentLoaded', addReimbursementsToTable);
+
+document.addEventListener('DOMContentLoaded', loginstatus)
+
+employeeElement.addEventListener('change', addReimbursementsToTablebyId)
+
+typeElement.addEventListener('change', addReimbursementsToTablebytype)
+
+getStatus.addEventListener("change", addReimbursementsToTablebyStatus);
+
+logoutElement.addEventListener("click", logout)
+
+submitBtn.addEventListener('click', approval)
+
+let emids = localStorage.getItem("ids")
 
 
 
-    function logout(){
-     fetch('http://127.0.0.1:8080/logout',{
-          'method':'POST'
-     })
-     .then((res) => {
-          data = res.status;
-          return data
-     }).then((data) => {
-          if (data==200){
-             localStorage.clear();
-             window.location.href = '/frontEnd/login.html'
-             window.alert("Logout Successful")
-          }
-     })
-   }
-   
-   
 
+
+function loginstatus() {
+  if (localStorage.length == 0) {
+    window.location.href = "/frontEnd/login.html";
+  }
+ 
+
+}
+
+function logout() {
+  fetch("http://127.0.0.1:8080/logout", {
+    method: "POST",
+  })
+    .then((res) => {
+      data = res.status;
+      return data;
+    })
+    .then((data) => {
+      if (data == 200) {
+        localStorage.clear();
+        window.alert("Logout Successful");
+        window.location.href = "/frontEnd/login.html";
+
+      }
+    });
+}
 
 function approval(){
+    let toParse = localStorage.getItem("reimbursement")
+    let reimbursement = JSON.parse(toParse) 
+    let length = localStorage.getItem("length")
+    let rid = document.getElementById("reimbursement")
+    let eid = localStorage.getItem("employee")
+    let newStatus = ""
+    let rdBtn = document.getElementsByName("approval");
+    console.log(rid.value)
+     let found = false;
+     for (i=0; i < length; i++){
+          
 
-     let approval = document.getElementsByName('approval')
-     for(i=0;i<approval.length;i++){
-          if (approval[0].checked){
-               let approved = approval[0].value;
-               sessionStorage.setItem("value", approved)
-     }
-          else{
-               let approved = approval[1].value;
-               sessionStorage.setItem("value", approved)
+          if (rid.value == reimbursement[i][5]){
+               found = true
           }
-     let id = document.getElementById("rid").value
+     }   
+     
+     for(i = 0; i < rdBtn.length; i++) {
+          if(rdBtn[0].checked){
+          newStatus = "Approved";
+
+      }
+          else if(rdBtn[1].checked){
+          newStatus = "Denied"
+         }
+     }
+
+     if(found == false){
+          alert("Please select a valid Reimbursement")
+     }
+     if(newStatus == ""){
+          alert("Please select to Approve or Deny")
+     }    
+     if (found == true && newStatus != ""){
+               fetch(`http://127.0.0.1:8080/login/reimbursement/status-change`,{
+                    'method': 'PUT',
+                    'credentials': 'include',
+                    'headers': {
+                      
+                      'Content-Type': 'application/json'
+                    },
+                    'body': JSON.stringify({
+                        "reimbursement_id": rid.value,
+                        "resolver_id": eid,
+                        "status": newStatus
+                    })}),
+                    
+               fetch("http://127.0.0.1:8080/login/reimbursement/manager/status") //need to sort by date automatically
+                         .then((res) => {
+                         return res.json();
+                           })
+                           .then((data) => {
+                         localStorage.removeItem("reimbursement")
+                             localStorage.setItem("reimbursement", JSON.stringify(data.reimbursement));
+                             localStorage.setItem("length", data.reimbursement.length);
+                             
+                             addReimbursementsToTable();
+                           })
+                           .catch((err) => {
+                             console.log(err);
+                           });
+               
+
+                       }
+          
+     
+     else{
+          console.log("null")
+          return null;
+     }
+}
+
+
+function addReimbursementsToTable() {
+  let reimbursement = localStorage.getItem("reimbursement");
+  let length = localStorage.getItem("length");
+  let parsedReim = JSON.parse(reimbursement);
+  reimbursemenElement.innerHTML = "";
+  let allId = [] 
+  
+
+  i = 0;
+  while (i < length) {
+    let row = document.createElement("tr");
+    let typeCell = document.createElement("td");
+    let statusCell = document.createElement("td");
+    let dCell = document.createElement("td");
+    let idCell = document.createElement("td");
+    let ridCell = document.createElement("td");
+    let aCell = document.createElement("td");
+    let ctsCell = document.createElement("td");
+    let rtsCell = document.createElement("td");
+    let rvCell = document.createElement("td");
+    let setCount = 0
+
+    let imgName = document.createElement("td");
+    let imgCell = document.createElement("td");
+    let imgElement = document.createElement("img");
+
+    imgCell.appendChild(imgElement);
+
+    idCell.innerHTML = parsedReim[i][0];
+    allId[i] = parsedReim[i][0]
+    aCell.innerHTML = "$" + parseFloat(parsedReim[i][1]).toFixed(2);
+    statusCell.innerHTML = parsedReim[i][2];
+    if (parsedReim[i][3] == "a") {
+      typeCell.innerHTML = "Lodging";
+    } else if (parsedReim[i][3] == "b") {
+      typeCell.innerHTML = "Travel";
+    } else if (parsedReim[i][3] == "c") {
+      typeCell.innerHTML = "Food";
+    } else if (parsedReim[i][3] == "d") {
+      typeCell.innerHTML = "Other";
+    }
+    if (parsedReim[i][4] == "") {
+      dCell.innerHTML = "N/A";
+    } else if (parsedReim[i][4] != "") {
+      dCell.innerHTML = parsedReim[i][4];
+    }
+    ridCell.innerHTML = parsedReim[i][5];
+    ctsCell.innerHTML = parsedReim[i][6];
+    if (parsedReim[i][7] == null) {
+      rtsCell.innerHTML = " N/A ";
+    } else if (parsedReim[i][7] != null) {
+      rtsCell.innerHTML = parsedReim[i][7];
+    }
+
+    if (parsedReim[i][8] == null) {
+      rvCell.innerHTML = " N/A ";
+    } else if (parsedReim[i][8] != null) {
+      rvCell.innerHTML = parsedReim[i][8];
+    }
+
+    // imgName.innerHTML = parsedReim[i][9];
+     imgElement.setAttribute('src', (parsedReim[i][10]))
+
+    row.appendChild(idCell);
+    row.appendChild(ridCell);
+    row.appendChild(aCell);
+    row.appendChild(typeCell);
+    row.appendChild(dCell);
+    row.appendChild(statusCell);
+    row.appendChild(ctsCell);
+    row.appendChild(rtsCell);
+    row.appendChild(rvCell);
+    //   row.appendChild(imgName);
+    row.appendChild(imgCell);
+
+    reimbursemenElement.appendChild(row);
+    i++;
+  }
+  
+}
+
+
+
+function grab() {
+  fetch("http://127.0.0.1:8080/login/reimbursement/manager/status") //need to sort by date automatically
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      localStorage.setItem("reimbursement", JSON.stringify(data.reimbursement));
+      localStorage.setItem("length", data.reimbursement.length);
+   
+      addReimbursementsToTable();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+
+
+function addReimbursementsToTablebyStatus(){
+     let statusValue = getStatus.options[getStatus.selectedIndex].value
+   
+     i=0;
      
     
-
-     if(sessionStorage.getItem("value") == "a"){
-           fetch(`http://127.0.0.1:8080/login/reimbursement/approve/${id}`,{
-                'credentials':'include'
-           })
-          
-     }
+     if(statusValue == "Status"){
+          grab()
+         }
      else{
-          console.log("here")
-          fetch(`http://127.0.0.1:8080/login/reimbursement/deny/${id}`,{
-               'credentials':'include'
-     })
-}}
-}
-
-
-
-
-
-
-
-
-
-
-
-function getId(){
-     fetch('http://127.0.0.1:8080/login/reimbursement/manager/employee',{
-          'credentials': 'include'
-     }) //need to sort by date automatically 
-     .then((res) => {
-          data = res.json();
+         
+          let reimbursement = localStorage.getItem("reimbursement");
+          let length = localStorage.getItem("length");
+          let parsedReim = JSON.parse(reimbursement);
+          reimbursemenElement.innerHTML = "";
+        
+          i = 0;
           
-          return data;
-     }).then((data) => {
-          for(i = 0; i < data.reimbursement.length; i++){
-               let newOption = new Option(data.reimbursement[i].employee_id[0], data.reimbursement[i].employee_id[0])
-               employeeElement.add(newOption, undefined)
-               
-          }
-}).catch((err) =>{
-        console.log(err)
-     })
-}
-
-
-   function addReimbursementsToTable(reimbursement_obj){
-        i=0;
-        while(i < reimbursement_obj.reimbursement.length){
-            let row = document.createElement('tr');
-            let typeCell = document.createElement('td');
-            let statusCell = document.createElement('td');
-            let dCell = document.createElement('td');
-            let idCell = document.createElement('td');
-            let ridCell = document.createElement('td');
-            let aCell = document.createElement('td');
+          while (i <= length) {
+            let row = document.createElement("tr");
+            let typeCell = document.createElement("td");
+            let statusCell = document.createElement("td");
+            let dCell = document.createElement("td");
+            let idCell = document.createElement("td");
+            let ridCell = document.createElement("td");
+            let aCell = document.createElement("td");
+            let ctsCell = document.createElement("td");
+            let rtsCell = document.createElement("td");
+            let rvCell = document.createElement("td");
+          //   let imgName = document.createElement("td");
+          //   let imgCell = document.createElement("td");
             
-            statusCell.innerHTML = reimbursement_obj.reimbursement[i].status;
-            if(reimbursement_obj.reimbursement[i].description == ""){
-               dCell.innerHTML = "N/A"
-          }  
-          else if(reimbursement_obj.reimbursement[i].description != "") {         
-               dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-          }            
-          if(reimbursement_obj.reimbursement[i].type_of_reimbursement == 'a'){
-               typeCell.innerHTML = "Lodging"
-          }
-          else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "b"){
-               typeCell.innerHTML = "Travel"
-          }
-          else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "c"){
-               typeCell.innerHTML = "Food"
-          }
-          else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "d"){
-               typeCell.innerHTML = "Other"
-          }
-            idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
-            ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-            aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)                              
-            
-
-
+        if (parsedReim[i][2] == statusValue){
+          console.log(parsedReim[i][2])
+            idCell.innerHTML = parsedReim[i][0];
+            aCell.innerHTML = "$" + parseFloat(parsedReim[i][1]).toFixed(2);
+            statusCell.innerHTML = parsedReim[i][2];
+            if (parsedReim[i][3] == "a") {
+              typeCell.innerHTML = "Lodging";
+            } else if (parsedReim[i][3] == "b") {
+              typeCell.innerHTML = "Travel";
+            } else if (parsedReim[i][3] == "c") {
+              typeCell.innerHTML = "Food";
+            } else if (parsedReim[i][3] == "d") {
+              typeCell.innerHTML = "Other";
+            }
+            if (parsedReim[i][4] == "") {
+              dCell.innerHTML = "N/A";
+            } else if (parsedReim[i][4] != "") {
+              dCell.innerHTML = parsedReim[i][4];
+            }
+            ridCell.innerHTML = parsedReim[i][5];
+            ctsCell.innerHTML = parsedReim[i][6];
+            if (parsedReim[i][7] == null) {
+              rtsCell.innerHTML = " N/A ";
+            } else if (parsedReim[i][7] != null) {
+              rtsCell.innerHTML = parsedReim[i][8];
+            }
+        
+            if (parsedReim[i][8] == null) {
+              rvCell.innerHTML = " N/A ";
+            } else if (parsedReim[i][8] != null) {
+              rvCell.innerHTML = parsedReim[i][8];
+            }
+        
+          //   imgName.innerHTML = parsedReim[i][9];
+          //   imgCell.innerHTML = JSON.stringify(parsedReim[i][10]);
+        
             row.appendChild(idCell);
             row.appendChild(ridCell);
             row.appendChild(aCell);
             row.appendChild(typeCell);
             row.appendChild(dCell);
             row.appendChild(statusCell);
-
+            row.appendChild(ctsCell);
+            row.appendChild(rtsCell);
+            row.appendChild(rvCell);
+          //     row.appendChild(imgName);
+          //     row.appendChild(imgCell);
+        
             reimbursemenElement.appendChild(row);
-            i++; 
-        }
-     //    for(i=0; i < reimbursement_obj.reimbursement.length; i++){
-     //      if(reimbursement_obj.reimbursement[i].employee_id ){
-     //           idToAdd.appendChild
-     //      }}
-   }    
-    
+            
+          }i++;
+     }          
+}};
    
 
-function grab() {
- 
+
+function addReimbursementsToTablebytype(){
+     let typeValue = getStatus.options[getStatus.selectedIndex].value
+     console.log()
+     i=0;
      
-    fetch('http://127.0.0.1:8080/login/reimbursement/manager/status') //need to sort by date automatically 
-    .then((res) => {
-         data = res.json();
-         return data;
-    }).then((data) => {
-         addReimbursementsToTable(data);
     
-    }).catch((err) =>{
-       console.log(err)
-    })
- }
-
-function filterStatus(){
-     let statusValue = getStatus.options[getStatus.selectedIndex].value
-     
-     reimbursemenElement.innerHTML = ""
-     
-     fetch('http://127.0.0.1:8080/login/reimbursement/manager/status') //need to sort by date automatically 
-     .then((res) => {
-          data = res.json();
-          return data;
-     }).then((data) => {
-          addReimbursementsToTablebyStatus(data, statusValue);
+     if(typeElement.value == "type_of"){
+          grab()
+         }
+     else{
+         
+          let reimbursement = localStorage.getItem("reimbursement");
+          let length = localStorage.getItem("length");
+          let parsedReim = JSON.parse(reimbursement);
+          reimbursemenElement.innerHTML = "";
+        
+          i = 0;
           
-     }).catch((err) =>{
-        console.log(err)
-     })
-       
-     }
-
-     function addReimbursementsToTablebyStatus(reimbursement_obj, statusValue){
-          i=0;
-          if(statusValue == "Status"){
-               grab()
-              }
-          else{
-              while(i < reimbursement_obj.reimbursement.length){
-             
-               let row = document.createElement('tr');
-             
-               let typeCell = document.createElement('td');
-             
-               let statusCell = document.createElement('td');
-             
-               let dCell = document.createElement('td');
-             
-               let idCell = document.createElement('td');
-             
-               let ridCell = document.createElement('td');
-             
-               let aCell = document.createElement('td');
-             
-             
-               if (reimbursement_obj.reimbursement[i].status == statusValue){          
-                    statusCell.innerHTML = reimbursement_obj.reimbursement[i].status;            
-                    if(reimbursement_obj.reimbursement[i].description == ""){
-                         dCell.innerHTML = "N/A"
-                    }  
-                    else if(reimbursement_obj.reimbursement[i].description != "") {         
-                         dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-                    }                    
-                    if(reimbursement_obj.reimbursement[i].description == ""){
-                         dCell.innerHTML = "N/A"
-                    }  
-                    else if(reimbursement_obj.reimbursement[i].description != "") {         
-                         dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-                    }            
-                    if(reimbursement_obj.reimbursement[i].type_of_reimbursement == 'a'){
-                         typeCell.innerHTML = "Lodging"
-                    }
-                    else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "b"){
-                         typeCell.innerHTML = "Travel"
-                    }
-                    else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "c"){
-                         typeCell.innerHTML = "Food"
-                    }
-                    else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "d"){
-                         typeCell.innerHTML = "Other"
-                    }                    idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
-                    ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-                    aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)                                      
-                    row.appendChild(idCell);
-                    row.appendChild(ridCell);
-                    row.appendChild(aCell);
-                    row.appendChild(typeCell);
-                    row.appendChild(dCell);
-                    row.appendChild(statusCell);
-  
-                    reimbursemenElement.appendChild(row);
-              }
-          
-              i++; 
-          }
-     }    }
-      
-
-
-     function filter_employee(){
-          let employeeValue = employeeElement.options[employeeElement.selectedIndex].value
-          
-          reimbursemenElement.innerHTML = ""
-          
-          fetch('http://127.0.0.1:8080/login/reimbursement/manager/status') //need to sort by date automatically 
-          .then((res) => {
-               data = res.json();
-               return data;
-          }).then((data) => {
-               addReimbursementsToTablebyid(data, employeeValue)
-              
-
-          }).catch((err) =>{
-             console.log(err)
-          })
+          while (i <= length) {
+            let row = document.createElement("tr");
+            let typeCell = document.createElement("td");
+            let statusCell = document.createElement("td");
+            let dCell = document.createElement("td");
+            let idCell = document.createElement("td");
+            let ridCell = document.createElement("td");
+            let aCell = document.createElement("td");
+            let ctsCell = document.createElement("td");
+            let rtsCell = document.createElement("td");
+            let rvCell = document.createElement("td");
+          //   let imgName = document.createElement("td");
+          //   let imgCell = document.createElement("td");
             
-          
-     
-          function addReimbursementsToTablebyid(reimbursement_obj, employeeValue){
-               i=0;
-
-               
-               if(employeeValue == "Employee ID"){
-                    grab()
-                   }
-               else{
-                    
-                   while(i < reimbursement_obj.reimbursement.length){
-                  
-                    let row = document.createElement('tr');
-                  
-                    let typeCell = document.createElement('td');
-                  
-                    let statusCell = document.createElement('td');
-                  
-                    let dCell = document.createElement('td');
-                  
-                    let idCell = document.createElement('td');
-                  
-                    let ridCell = document.createElement('td');
-                  
-                    let aCell = document.createElement('td');
-                  
-                  
-                    if (reimbursement_obj.reimbursement[i].employee_id == employeeValue){          
-                         statusCell.innerHTML = reimbursement_obj.reimbursement[i].status;
-                         if(reimbursement_obj.reimbursement[i].description == ""){
-                              dCell.innerHTML = "N/A"
-                         }  
-                         else if(reimbursement_obj.reimbursement[i].description != "") {         
-                              dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-                         }
-                         if(reimbursement_obj.reimbursement[i].description == ""){
-                              dCell.innerHTML = "N/A"
-                         }  
-                         else if(reimbursement_obj.reimbursement[i].description != "") {         
-                              dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-                         }            
-                         if(reimbursement_obj.reimbursement[i].type_of_reimbursement == 'a'){
-                              typeCell.innerHTML = "Lodging"
-                         }
-                         else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "b"){
-                              typeCell.innerHTML = "Travel"
-                         }
-                         else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "c"){
-                              typeCell.innerHTML = "Food"
-                         }
-                         else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "d"){
-                              typeCell.innerHTML = "Other"
-                         }                         idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
-                         ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-                         aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)                                           
-                         row.appendChild(idCell);
-                         row.appendChild(ridCell);
-                         row.appendChild(aCell);
-                         row.appendChild(typeCell);
-                         row.appendChild(dCell);
-                         row.appendChild(statusCell);
-       
-                         reimbursemenElement.appendChild(row);
-                   }
-               
-                   i++; 
-               }
-          }    }}
-           
-
-          
-          
-     function filter_type(){
-          let typeValue = typeElement.options[typeElement.selectedIndex].value
-          
-          reimbursemenElement.innerHTML = ""
-          
-          fetch('http://127.0.0.1:8080/login/reimbursement/manager/status') //need to sort by date automatically 
-          .then((res) => {
-               data = res.json();
-               return data;
-          }).then((data) => {
-               
-               addReimbursementsToTablebyType(data, typeValue);
-               
-          }).catch((err) =>{
-             console.log(err)
-          })
+        if (parsedReim[i][3] == typeElement.value){
+            idCell.innerHTML = parsedReim[i][0];
+            aCell.innerHTML = "$" + parseFloat(parsedReim[i][1]).toFixed(2);
+            statusCell.innerHTML = parsedReim[i][2];
+            if (parsedReim[i][3] == "a") {
+              typeCell.innerHTML = "Lodging";
+            } else if (parsedReim[i][3] == "b") {
+              typeCell.innerHTML = "Travel";
+            } else if (parsedReim[i][3] == "c") {
+              typeCell.innerHTML = "Food";
+            } else if (parsedReim[i][3] == "d") {
+              typeCell.innerHTML = "Other";
+            }
+            if (parsedReim[i][4] == "") {
+              dCell.innerHTML = "N/A";
+            } else if (parsedReim[i][4] != "") {
+              dCell.innerHTML = parsedReim[i][4];
+            }
+            ridCell.innerHTML = parsedReim[i][5];
+            ctsCell.innerHTML = parsedReim[i][6];
+            if (parsedReim[i][7] == null) {
+              rtsCell.innerHTML = " N/A ";
+            } else if (parsedReim[i][7] != null) {
+              rtsCell.innerHTML = parsedReim[i][8];
+            }
+        
+            if (parsedReim[i][8] == null) {
+              rvCell.innerHTML = " N/A ";
+            } else if (parsedReim[i][8] != null) {
+              rvCell.innerHTML = parsedReim[i][8];
+            }
+        
+          //   imgName.innerHTML = parsedReim[i][9];
+          //   imgCell.innerHTML = JSON.stringify(parsedReim[i][10]);
+        
+            row.appendChild(idCell);
+            row.appendChild(ridCell);
+            row.appendChild(aCell);
+            row.appendChild(typeCell);
+            row.appendChild(dCell);
+            row.appendChild(statusCell);
+            row.appendChild(ctsCell);
+            row.appendChild(rtsCell);
+            row.appendChild(rvCell);
+          //     row.appendChild(imgName);
+          //     row.appendChild(imgCell);
+        
+            reimbursemenElement.appendChild(row);
             
-          }
+          }i++;}
+          let setId = new Set(allId)
+          let ids = Array.from(setId)
+     }    
+        
+          for(i = 0; i < setId.size; i++){
+             let newOption = new Option(ids[i])
+             employeeElement.add(newOption, undefined)
+             
+        
+          //    
      
-          function addReimbursementsToTablebyType(reimbursement_obj, typeValue){
-               i=0;
-               
-               if(typeValue == "type_of"){
-                    grab()
-                   }
-               else{
-                    
-                   while(i < reimbursement_obj.reimbursement.length){
-                  
-                    let row = document.createElement('tr');
-                  
-                    let typeCell = document.createElement('td');
-                  
-                    let statusCell = document.createElement('td');
-                  
-                    let dCell = document.createElement('td');
-                  
-                    let idCell = document.createElement('td');
-                  
-                    let ridCell = document.createElement('td');
-                  
-                    let aCell = document.createElement('td');
-                  
-                  
-                    if (reimbursement_obj.reimbursement[i].type_of_reimbursement == typeValue){          
-                         statusCell.innerHTML = reimbursement_obj.reimbursement[i].status;
-                         if(reimbursement_obj.reimbursement[i].description == ""){
-                              dCell.innerHTML = "N/A"
-                         }  
-                         else if(reimbursement_obj.reimbursement[i].description != "") {         
-                              dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-                         }
-                         if(reimbursement_obj.reimbursement[i].description == ""){
-                              dCell.innerHTML = "N/A"
-                         }  
-                         else if(reimbursement_obj.reimbursement[i].description != "") {         
-                              dCell.innerHTML = reimbursement_obj.reimbursement[i].description;
-                         }            
-                         if(reimbursement_obj.reimbursement[i].type_of_reimbursement == 'a'){
-                              typeCell.innerHTML = "Lodging"
-                         }
-                         else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "b"){
-                              typeCell.innerHTML = "Travel"
-                         }
-                         else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "c"){
-                              typeCell.innerHTML = "Food"
-                         }
-                         else if(reimbursement_obj.reimbursement[i].type_of_reimbursement == "d"){
-                              typeCell.innerHTML = "Other"
-                         }                         idCell.innerHTML = reimbursement_obj.reimbursement[i].employee_id;
-                         ridCell.innerHTML = reimbursement_obj.reimbursement[i].reimbursement_id;
-                         aCell.innerHTML = "$" + parseFloat(reimbursement_obj.reimbursement[i].amount).toFixed(2)
-                                           
-                         row.appendChild(idCell);
-                         row.appendChild(ridCell);
-                         row.appendChild(aCell);
-                         row.appendChild(typeCell);
-                         row.appendChild(dCell);
-                         row.appendChild(statusCell);
-       
-                         reimbursemenElement.appendChild(row);
-                   }
-               
-                   i++; 
-               }
-          }    }
-           
+     }}
+
+     
+function addReimbursementsToTablebyId(){
+     
+   
+     i=0;
+     
+    
+     if(employeeElement.value == "Employee ID"){
+          grab()
+         }
+     else{
+         
+          let reimbursement = localStorage.getItem("reimbursement");
+          let length = localStorage.getItem("length");
+          let parsedReim = JSON.parse(reimbursement);
+          reimbursemenElement.innerHTML = "";
+        
+          i = 0;
+          
+          while (i <= length) {
+            let row = document.createElement("tr");
+            let typeCell = document.createElement("td");
+            let statusCell = document.createElement("td");
+            let dCell = document.createElement("td");
+            let idCell = document.createElement("td");
+            let ridCell = document.createElement("td");
+            let aCell = document.createElement("td");
+            let ctsCell = document.createElement("td");
+            let rtsCell = document.createElement("td");
+            let rvCell = document.createElement("td");
+          //   let imgName = document.createElement("td");
+          //   let imgCell = document.createElement("td");
+            
+        if (parsedReim[i][0] == employeeElement.value){
+            idCell.innerHTML = parsedReim[i][0];
+            aCell.innerHTML = "$" + parseFloat(parsedReim[i][1]).toFixed(2);
+            statusCell.innerHTML = parsedReim[i][2];
+            if (parsedReim[i][3] == "a") {
+              typeCell.innerHTML = "Lodging";
+            } else if (parsedReim[i][3] == "b") {
+              typeCell.innerHTML = "Travel";
+            } else if (parsedReim[i][3] == "c") {
+              typeCell.innerHTML = "Food";
+            } else if (parsedReim[i][3] == "d") {
+              typeCell.innerHTML = "Other";
+            }
+            if (parsedReim[i][4] == "") {
+              dCell.innerHTML = "N/A";
+            } else if (parsedReim[i][4] != "") {
+              dCell.innerHTML = parsedReim[i][4];
+            }
+            ridCell.innerHTML = parsedReim[i][5];
+            ctsCell.innerHTML = parsedReim[i][6];
+            if (parsedReim[i][7] == null) {
+              rtsCell.innerHTML = " N/A ";
+            } else if (parsedReim[i][7] != null) {
+              rtsCell.innerHTML = parsedReim[i][8];
+            }
+        
+            if (parsedReim[i][8] == null) {
+              rvCell.innerHTML = " N/A ";
+            } else if (parsedReim[i][8] != null) {
+              rvCell.innerHTML = parsedReim[i][8];
+            }
+        
+          //   imgName.innerHTML = parsedReim[i][9];
+          //   imgCell.innerHTML = JSON.stringify(parsedReim[i][10]);
+        
+            row.appendChild(idCell);
+            row.appendChild(ridCell);
+            row.appendChild(aCell);
+            row.appendChild(typeCell);
+            row.appendChild(dCell);
+            row.appendChild(statusCell);
+            row.appendChild(ctsCell);
+            row.appendChild(rtsCell);
+            row.appendChild(rvCell);
+          //     row.appendChild(imgName);
+          //     row.appendChild(imgCell);
+        
+            reimbursemenElement.appendChild(row);
+            
+          }i++;
+     }          
+}};
+   

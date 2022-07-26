@@ -14,7 +14,7 @@ def test_login_positive(mocker):
     def mock_get_login_information(self, username, password):
         if(username == "ChristopSullivan" and password == "PassWord123!"):
             return (ee.Employee(100001, "ChristopSullivan", "PassWord123!", "Chris", "Sullivan", 0, "email1@revature.net"))
-    mocker.patch('backend.dao.employee_dao.EmployeeDao.get_user_by_username_and_password', mock_get_login_information)
+    mocker.patch('backend.dao.employee_dao.EmployeeDao.get_user_by_username', mock_get_login_information)
 
     employee_serv = es.EmployeeService()
     actual = employee_serv.login("ChristopSullivan", "PassWord123!")
@@ -38,7 +38,7 @@ def test_login_negative(mocker):
             return employee_obj
         else:
             return None
-    mocker.patch('backend.dao.employee_dao.EmployeeDao.get_user_by_username_and_password', mock_get_login)
+    mocker.patch('backend.dao.employee_dao.EmployeeDao.get_user_by_username', mock_get_login)
     employee_serv = es.EmployeeService()
 
     with pytest.raises(LoginError) as excinfo:

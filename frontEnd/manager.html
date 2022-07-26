@@ -31,22 +31,24 @@
   <div class="hero__container">
     <div style=>
       <ul>
-        <th>Reimbursement ID: <input id="rid"></th>
+        <th>Reimbursement ID: <input  style="width: 180px;" id="reimbursement"></th>
       </ul>
     </div>
     <div>
       <ul>
-        <div class="control" style="margin-bottom: 30px" >
-          <label class="radio"  >
+        <div class="control" style="margin-bottom: 30px"  >
+          <label class="radio" id="approval" >
             <input type="radio" class="approval" name="approval" value="a" id="a">
             Approve
           </label>
           <label class="radio">
             <input type="radio" class="approval" name="approval" value="b" id ="b": style="margin-left: 35px">
             Deny
+            </label>
+        
           </label>
-          <button style="margin-left: 25px ; margin-top: 20px; height: 30px; width: 115px;" id="submit">Submit</button>
-          
+          <button style="margin-left: 25px ; margin-top: 20px; height: 30px; width: 115px;" class="small-button" id="submit">Submit</button>
+        
           
         </div>
       </ul>
@@ -77,6 +79,10 @@
         <option value="Approved">Approved</option>
         <option value="Denied">Declined</option>
       </select>
+      <th>Submitted</th>
+      <th>Resolved</th>
+      <th>Resolved By</th>
+      <th>Receipt</th>
     </th>
     
   </tr>
@@ -85,7 +91,17 @@
         <tbody  style="text-emphasis-color: white;">
         </tbody>
     </table>
+    <button class="button" style="height: 30px; margin-bottom:20px; margin-left: 10px; width: 30%; height: 50px; margin-top: 40px;"  id="populate">Refresh Table</button>
 
+
+    
+
+
+
+
+ 
+    
    
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 import json
 import numpy
+import os
 from flask import Blueprint, request, session
 from backend.services.employee_servies import EmployeeService
 import backend.services.reimbursement_services
@@ -50,9 +51,9 @@ def view_reimbursement(employee_id):
 
 @rc.route("/login/reimbursement/manager/status", methods=['GET'])
 def view_all_reimbursement_status():
+    session.clear()
     try:
         reimbursement_dict = reimbursement_service.view_all_reimbursements_status()
-        print(type(reimbursement_dict))
 
         return {
             "reimbursement": reimbursement_dict

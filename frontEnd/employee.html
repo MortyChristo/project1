@@ -10,63 +10,77 @@
     <script defer src="/frontEnd/employee.js"></script>
 </head>
 <body>
- <!-- Navbar Section -->
- <nav class="navbar">
-  <div class="navbar__container">
-    <a href="/frontEnd/index.html" id="navbar__logo">Employee Pay Back</a>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="navbar__container">
+        <a href="/frontEnd/index.html" id="navbar__logo">Employee Pay Back</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a class="navbar__links" id="logout">Logout</a>
+          </li>
+        
+          
+          <li class="navbar__btn">
+            <a href="/frontEnd/add.html" class="button" id="add">Add Reimbursement</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+     </div>
+   </nav>
+   <div class="hero" id="home">
+     <div class="hero__container">
+       <div style=>
+         
+       </div>
+       <div>
+    
+       </div>
+     <table id="reimbursement-table" style="width:100%">
+       <thead style="background-color: rgb(66, 3, 75);">
+       <tr>      
+        
+         <th width="16%">Reimbursement ID</th>
+         <th width="12%">Amount</th>
+         <th width="12%"><select name="re-type" id="re-type" style="height: 25px; background-color: rgb(0, 0, 0);">
+           <option value="type_of">Type of Reimbursement</option>
+           <option value="a">Lodging</option>
+           <option value="b">Travel</option>
+           <option value="c">Food</option>
+           <option value="d">Other</option>
+         </select>
+       </th>
+         <th width="15%">Description</th>
+         
+         <th width="10%"><select name="status" id="status" style="height: 25px; background-color: rgb(0, 0, 0);">
+           <option value="Status">--Status--</option>
+           <option value="Pending">Pending</option>
+           <option value="Approved">Approved</option>
+           <option value="Denied">Declined</option>
+         </select>
+         <th width="15%">Submitted</th>
+         <th width="15%">Resolved</th>
+         <th width="10%">Resolved By</th>
+         <th width="10%">Receipt</th>
+       </th>
+       
+     </tr>
+     </thead>
+     
+           <tbody  style="text-emphasis-color: white;">
+           </tbody>
+       </table>
+    
+   
    
     
-    <ul class="navbar__menu">
-      <li class="navbar__item">
-        <a class="navbar__links" id="logout">Logout</a>
-      </li>
-      <ul class="navbar__menu">
-        
-        <li class="navbar__btn">
-          <a href="/frontEnd/add.html" class="button" id="add">Add Reimbursement</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+       
       
-     
-    </ul>
-  </div>
-</nav>
-<div class="hero" id="home">
-  <div class="hero__container">
-    <button class="button" style="height: 30px; margin-bottom:20px; margin-left: 10px; width: 40%"  id="populate">Populate Table</button>
-  <table id="reimbursement-table" style="width: 100% ;">
-    <thead style= " background-image: linear-gradient(to top, #580451 0%, #c75de7 100%);">
-    <tr>      
-     
-          <th>Reimbursement ID</th>
-          <th>Amount</th>
-          <th><select name="re-type" id="re-type" style="background-color: rgb(223, 217, 217)">
-            <option value="type_of">Type of Reimbursement</option>
-            <option value="a">Lodging</option>
-            <option value="b">Travel</option>
-            <option value="c">Food</option>
-            <option value="d">Other</option>
-          </select>
-        </th>
-          <th>Description</th>
-          
-          <th><select name="status" id="status" style="background-color: rgb(223, 217, 217);">
-            <option value="Status">--Status--</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Denied">Declined</option>
-          </select>
-        </th>
-        
-      </tr>
-      </thead>
-      
-            <tbody style="background-color: rgb(35, 32, 36);">
-            </tbody>
-        </table>
-
-   
+   </body>
 </body>
 </html>

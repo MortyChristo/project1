@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS employees;
 CREATE TABLE employees(
 employee_id VARCHAR(10) UNIQUE NOT NULL, 
 username VARCHAR(20) PRIMARY KEY,
-employee_password VARCHAR(20) NOT NULL,
+employee_password VARCHAR NOT NULL,
 first_name VARCHAR(20) NOT NULL,
 last_name VARCHAR(20) NOT NULL,
 employee_type INTEGER,
@@ -20,8 +20,12 @@ amount FLOAT,
 status VARCHAR,
 type_of_reimbursement VARCHAR, 
 description VARCHAR DEFAULT 'N/A',
-
 reimbursement_ID SERIAL PRIMARY KEY,
+createdTime VARCHAR,
+resolvedTime VARCHAR,
+resolver VARCHAR,
+nameFile VARCHAR,
+imageFile VARCHAR,
 CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 
 )
@@ -46,6 +50,7 @@ FROM employees
 LEFT JOIN employee_type_identifier ON employees.employee_type = employee_type_identifier.id
 ORDER BY employees.employee_id;
 
+SELECT 
 
 SELECT * FROM employees
 
@@ -64,7 +69,9 @@ SET status = 'Pending'
 WHERE reimbursement_ID = 1 RETURNING *
 
 
-
+UPDATE employees 
+SET employee_type = 1
+WHERE employee_id = '123437';
 
 
 

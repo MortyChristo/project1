@@ -55,37 +55,37 @@ class EmployeeService:
         special_character_count = 0
         numeric_character_count = 0
 
-        # for char in employee_obj.employee_password:
-        #     if char in alphabetical_characters:
-        #         lower_alpha_count += 1
-        #
-        #     if char in alphabetical_characters.upper():
-        #         upper_alpha_count += 1
-        #
-        #     if char in special_characters:
-        #         special_character_count += 1
-        #
-        #     if char in numeric_characters:
-        #         numeric_character_count += 1
-        #
-        # if lower_alpha_count == 0:
-        #     registration_error.messages.append("Password must have at least 1 lowercase character")
-        #     self.error_messages.append("Password must have at least 1 lowercase character")
-        # if upper_alpha_count == 0:
-        #     registration_error.messages.append("Password must have at least 1 uppercase character")
-        #     self.error_messages.append("Password must have at least 1 uppercase character")
-        # if special_character_count == 0:
-        #     registration_error.messages.append("Password must have at least 1 special (!@#$%^&*) character")
-        #     self.error_messages.append("Password must have at least 1 special (!@#$%^&*) character")
-        # if numeric_character_count == 0:
-        #     registration_error.messages.append("Password must have at least 1 numeric character")
-        #     self.error_messages.append("Password must have at least 1 numeric character")
-        # if len(employee_obj.employee_password) < 6 or len(employee_obj.employee_password) > 20:
-        #     registration_error.messages.append("Password must be between 6 and 20 characters in length inclusive")
-        #     self.error_messages.append("Password must be between 6 and 20 characters in length inclusive")
-        # if len(employee_obj.employee_password) != lower_alpha_count + upper_alpha_count + special_character_count + numeric_character_count:
-        #     registration_error.messages.append("Password must contain only alphanumeric and special characters")
-        #     self.error_messages.append("Password must contain only alphanumeric and special characters")
+        for char in employee_obj.employee_password:
+            if char in alphabetical_characters:
+                lower_alpha_count += 1
+
+            if char in alphabetical_characters.upper():
+                upper_alpha_count += 1
+
+            if char in special_characters:
+                special_character_count += 1
+
+            if char in numeric_characters:
+                numeric_character_count += 1
+
+        if lower_alpha_count == 0:
+            registration_error.messages.append("Password must have at least 1 lowercase character")
+            self.error_messages.append("Password must have at least 1 lowercase character")
+        if upper_alpha_count == 0:
+            registration_error.messages.append("Password must have at least 1 uppercase character")
+            self.error_messages.append("Password must have at least 1 uppercase character")
+        if special_character_count == 0:
+            registration_error.messages.append("Password must have at least 1 special (!@#$%^&*) character")
+            self.error_messages.append("Password must have at least 1 special (!@#$%^&*) character")
+        if numeric_character_count == 0:
+            registration_error.messages.append("Password must have at least 1 numeric character")
+            self.error_messages.append("Password must have at least 1 numeric character")
+        if len(employee_obj.employee_password) < 6 or len(employee_obj.employee_password) > 20:
+            registration_error.messages.append("Password must be between 6 and 20 characters in length inclusive")
+            self.error_messages.append("Password must be between 6 and 20 characters in length inclusive")
+        if len(employee_obj.employee_password) != lower_alpha_count + upper_alpha_count + special_character_count + numeric_character_count:
+            registration_error.messages.append("Password must contain only alphanumeric and special characters")
+            self.error_messages.append("Password must contain only alphanumeric and special characters")
 
 
 
