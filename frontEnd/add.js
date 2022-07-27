@@ -3,14 +3,32 @@ let descriptionInput = document.getElementById('description-input');
 let submitButton = document.getElementById('submit-btn');
 let eid = localStorage.getItem("employee")
 let imgData = document.getElementById("img")
+let logoutElement = document.getElementById("logout");
 
 
+
+logoutElement.addEventListener("click", logout);
 
 submitButton.addEventListener('click', add);
 
-//document.addEventListener('DOMContentLoaded', loginstatus)
+document.addEventListener('DOMContentLoaded', loginstatus)
 
-
+function logout() {
+    fetch("http://127.0.0.1:8080/logout", {
+      method: "POST",
+    })
+      .then((res) => {
+        data = res.status;
+        return data;
+      })
+      .then((data) => {
+        if (data == 200) {
+          localStorage.clear();
+          window.alert("Logout Successful");
+          window.location.href = "/frontEnd/login.html";
+        }
+      });
+  }
 
 function loginstatus(){
     
@@ -43,18 +61,24 @@ function add(){
     formData.append("description", descriptionInput.value)
     formData.append("img", imgData.files[0])
     console.log(imgData.value, imgData.files[0])
-fetch(`http://127.0.0.1:8080//login/reimbursement/add`, {
+    fetch(`http://127.0.0.1:8080//login/reimbursement/add`, {
         'method': 'POST',
         'credentials':'include',
         'body': formData,
 
         }).then((res) =>{
-    
+            
             data = res.status;
-            return data;
-        }).then((data) => {
-            if (data == 200){
-                window.alert("Reimbursement Added")
+
+            console.log(data)
+       
+            if (data == 200){ 
+                window.location.href = "/frontEnd/employee.html";
+              
+            }
+            
+            if(data == 400){
+                alert("Did not add Reimbursement")
             }
         })
   

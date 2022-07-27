@@ -88,7 +88,7 @@ def add_reimbursement():
 
     img = request.files['img']
     image = img
-    print(image)
+
 
 
     employee_id = dict['employee_id'][0]
@@ -101,11 +101,8 @@ def add_reimbursement():
 
     try:
 
-        reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status,
-                                                                                     type_of_reimbursement, description,
-                                                                                     None, "N/A", "N/A",
-                                                                                     "N/A", None), img)
-
+        reimbursement_added = reimbursement_service.add_reimbursement(Reimbursements(employee_id, amount, status, type_of_reimbursement, description, None, "N/A", "N/A", "N/A", None), img)
+        return reimbursement_added
     except RegistrationError as e:
         return {
             "messages": e.messages

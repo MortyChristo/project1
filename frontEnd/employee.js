@@ -20,6 +20,8 @@ logoutElement.addEventListener("click", logout)
 let emids = localStorage.getItem("ids")
 
 
+let populate = document.getElementById("populate");
+populate.addEventListener("click", grab);
 
 
 
