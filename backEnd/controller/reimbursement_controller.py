@@ -79,7 +79,6 @@ def view_employee_id():
 def add_reimbursement():
     data = request.form
     dict = data.to_dict(flat=False)
-    print(dict)
 
     img = request.files['img']
     image = img

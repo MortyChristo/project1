@@ -13,7 +13,7 @@ populate.addEventListener("click", grab);
 
 document.addEventListener("DOMContentLoaded", addReimbursementsToTable);
 
-document.addEventListener("DOMContentLoaded", loginstatus);
+//document.addEventListener("DOMContentLoaded", loginstatus);
 
 employeeElement.addEventListener("change", addReimbursementsToTablebyId);
 
@@ -23,7 +23,7 @@ getStatus.addEventListener("change", addReimbursementsToTablebyStatus);
 
 logoutElement.addEventListener("click", logout);
 
-document.addEventListener("change", approval);
+submitBtn.addEventListener("click", approval);
 
 let emids = localStorage.getItem("ids");
 
