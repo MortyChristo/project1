@@ -24,10 +24,9 @@ reimbursement_ID SERIAL PRIMARY KEY,
 createdTime VARCHAR,
 resolvedTime VARCHAR,
 resolver VARCHAR,
+imageFile BYTEA,
 nameFile VARCHAR,
-imageFile VARCHAR,
 CONSTRAINT fk_employees FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
-
 )
 
 
@@ -74,6 +73,8 @@ SET employee_type = 1
 WHERE employee_id = '123437';
 
 
+SELECT * FROM reimbursements 
+WHERE employee_id = '100000'; 
 
 
 

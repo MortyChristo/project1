@@ -1,6 +1,6 @@
 Feature: Register
 
-  Scenario Outline: Successful Employee Registration
+  Scenario Outline: Successful Employee Registration                             11 of 14 test passed 95% total passing
     Given that I am at the registration page
     When I type in a valid Employee ID of <id>
     And a valid username of <un>
@@ -17,8 +17,40 @@ Feature: Register
     |987654| drsuess          | WHOOville!1   | The   | Grinch   | hateschristmas@whoville.com| login    |
     |852147| nighthawk        | TheDragonB4D1 |Brennan| Huff     | president@prestigeworldwide| login    |
 
-#add more people into table
 
+  Scenario: Employee Id is already in use
+    Given that I am at the registration page
+    When I type in a valid employee id that is already in use
+    And a valid username
+    And a valid password
+    And a valid firstname
+    And a valid last name
+    And a valid email address
+    And I click Register
+    Then I should receive an error stating the username is already in use
+
+
+  Scenario: Username is already in use
+    Given that I am at the registration page
+    When I type in a valid employee id
+    And a username that is already in use
+    And a valid password
+    And a valid firstname
+    And a valid last name
+    And a valid email address
+    And I click Register
+    Then I should receive an error stating the username is already in use
+
+      Scenario: Email is already in use
+    Given that I am at the registration page
+    When I type in a valid employee id
+    And a valid username
+    And a valid password
+    And a valid firstname
+    And a valid last name
+    And a valid email address that is already in use
+    And I click Register
+    Then I should receive an error stating the username is already in use
 
   Scenario: Invalid employee id, Invalid username, invalid password, Invalid first name, Invalid last name, Invalid email address
     Given that I am at the registration page

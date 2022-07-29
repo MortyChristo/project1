@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 driver = webdriver.Chrome()
-driver.implicitly_wait(10)
+
 driver.get('http://127.0.0.1:5500/frontEnd/index.html');
 
 
@@ -21,6 +21,7 @@ registerBtn = driver.find_element(By.LINK_TEXT, "Register")
 registerBtn.click()
 
 # registration page
+time.sleep(1)
 registerBtn = driver.find_element(By.ID, "register-submit-btn")
 registerBtn.click()
 time.sleep(1)
@@ -153,19 +154,12 @@ usernameInput = driver.find_element(By.ID, "username-login-input")
 usernameInput.send_keys("ChristopSullivan")
 passwordInput = driver.find_element(By.ID, "password-login-input")
 passwordInput.send_keys("PassWord123!")
-
+loginBtn = driver.find_element(By.ID, "login")
+loginBtn.click()
 
 
 #employee side login
-# driver.implicitly_wait(5)
-# dropdown = driver.find_element(By.ID, "status")
-# select_element = Select(dropdown)
-# time.sleep(2)
-#
-# select_element.select_by_index(1)
-# #
-# dropdown = Select(select_element)
-# dropdown.select_by_visible_text("Travel")
+
 
 
 

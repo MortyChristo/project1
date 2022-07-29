@@ -1,6 +1,6 @@
 Feature: Login
 
-  Scenario: Click Home Button
+  Scenario: Click Home Button                                           7 of 7 test passed
     Given that I am at the Login page
     When I click the home button
     Then I will be redirected to the home page

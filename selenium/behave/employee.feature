@@ -1,7 +1,7 @@
 Feature: Employee
 
 
-  Scenario: Clicking Add Reimbursement Button
+  Scenario: Clicking Add Reimbursement Button                             11 of 11 passed
     Given that I am at the employee page
     When I click the add reimbursement Button
     Then I should be redirected to the add reimbursement page

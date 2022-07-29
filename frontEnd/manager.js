@@ -6,7 +6,8 @@ let typeElement = document.getElementById("re-type");
 let logoutElement = document.getElementById("logout");
 let newNav = document.getElementById("navbar_logo");
 let submitBtn = document.getElementById("submit");
-
+// let x = document.getElementById("changer")
+let ao = document.querySelector("body");
 let populate = document.getElementById("populate");
 populate.addEventListener("click", grab);
 
@@ -22,7 +23,7 @@ getStatus.addEventListener("change", addReimbursementsToTablebyStatus);
 
 logoutElement.addEventListener("click", logout);
 
-submitBtn.addEventListener("click", approval);
+document.addEventListener("change", approval);
 
 let emids = localStorage.getItem("ids");
 
@@ -50,6 +51,8 @@ function logout() {
 }
 
 function approval() {
+  console.log(ao.value);
+
   let toParse = localStorage.getItem("reimbursement");
   let reimbursement = JSON.parse(toParse);
   let length = localStorage.getItem("length");
@@ -86,10 +89,10 @@ function approval() {
   }
   if (found == true && newStatus != "") {
     fetch(`http://127.0.0.1:8080/login/reimbursement/status-change`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+      'method': 'PUT',
+      'credentials': 'include',
+      'headers': {
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         reimbursement_id: rid.value,
@@ -140,10 +143,8 @@ function addReimbursementsToTable() {
     let rtsCell = document.createElement("td");
     let rvCell = document.createElement("td");
     let setCount = 0;
-    let anchorCell = document.createElement("a")
+    let anchorCell = document.createElement("a");
     let imgCell = document.createElement("td");
-
-    
 
     idCell.innerHTML = parsedReim[i][0];
     allId[i] = parsedReim[i][0];
@@ -172,17 +173,26 @@ function addReimbursementsToTable() {
     }
 
     if (parsedReim[i][8] == null) {
-      rvCell.innerHTML = " N/A ";
+      let approvalOption = document.createElement("select");
+      let ao = document.getElementById("ao");
+      approvalOption.setAttribute("statusChange", "statusChange");
+      let option1 = new Option("Select");
+      approvalOption.add(option1, undefined);
+
+      let a = new Option("Approve");
+      approvalOption.add(a, undefined);
+
+      let d = new Option("Deny");
+      approvalOption.add(d, undefined);
+      // rvCell.appendChild(approvalOption)
+      rvCell.innerHTML = "N/A";
     } else if (parsedReim[i][8] != null) {
       rvCell.innerHTML = parsedReim[i][8];
     }
-   
-    anchorCell.setAttribute('href', parsedReim[i][9])
-    anchorCell.innerText = "Reciept"
+
+    anchorCell.setAttribute("href", parsedReim[i][9]);
+    anchorCell.innerText = "Reciept";
     imgCell.appendChild(anchorCell);
-
-
-
 
     row.appendChild(idCell);
     row.appendChild(ridCell);
@@ -199,6 +209,13 @@ function addReimbursementsToTable() {
     reimbursemenElement.appendChild(row);
     i++;
   }
+  let setId = new Set(allId);
+  let ids = Array.from(setId);
+
+  for (i = 0; i < setId.size; i++) {
+    let newOption = new Option(ids[i]);
+    employeeElement.add(newOption, undefined);
+  }
 }
 
 function grab() {
@@ -209,7 +226,6 @@ function grab() {
     .then((data) => {
       localStorage.setItem("reimbursement", JSON.stringify(data.reimbursement));
       localStorage.setItem("length", data.reimbursement.length);
-
       addReimbursementsToTable();
     })
     .catch((err) => {
@@ -229,7 +245,7 @@ function addReimbursementsToTablebyStatus() {
     let length = localStorage.getItem("length");
     let parsedReim = JSON.parse(reimbursement);
     reimbursemenElement.innerHTML = "";
-
+    let allIds = [];
     i = 0;
 
     while (i <= length) {
@@ -243,7 +259,7 @@ function addReimbursementsToTablebyStatus() {
       let ctsCell = document.createElement("td");
       let rtsCell = document.createElement("td");
       let rvCell = document.createElement("td");
-   
+
       if (parsedReim[i][2] == statusValue) {
         console.log(parsedReim[i][2]);
         idCell.innerHTML = parsedReim[i][0];
@@ -276,11 +292,11 @@ function addReimbursementsToTablebyStatus() {
         } else if (parsedReim[i][8] != null) {
           rvCell.innerHTML = parsedReim[i][8];
         }
-        let anchorCell = document.createElement("a")
+        let anchorCell = document.createElement("a");
         let imgCell = document.createElement("td");
-    
-        anchorCell.setAttribute('href', parsedReim[i][9])
-        anchorCell.innerText = "Reciept"
+
+        anchorCell.setAttribute("href", parsedReim[i][9]);
+        anchorCell.innerText = "Reciept";
         imgCell.appendChild(anchorCell);
 
         row.appendChild(idCell);
@@ -359,11 +375,11 @@ function addReimbursementsToTablebytype() {
         } else if (parsedReim[i][8] != null) {
           rvCell.innerHTML = parsedReim[i][8];
         }
-        let anchorCell = document.createElement("a")
+        let anchorCell = document.createElement("a");
         let imgCell = document.createElement("td");
-    
-        anchorCell.setAttribute('href', parsedReim[i][9])
-        anchorCell.innerText = "Reciept"
+
+        anchorCell.setAttribute("href", parsedReim[i][9]);
+        anchorCell.innerText = "Reciept";
         imgCell.appendChild(anchorCell);
 
         row.appendChild(idCell);
@@ -417,7 +433,6 @@ function addReimbursementsToTablebyId() {
       let ctsCell = document.createElement("td");
       let rtsCell = document.createElement("td");
       let rvCell = document.createElement("td");
-  
 
       if (parsedReim[i][0] == employeeElement.value) {
         idCell.innerHTML = parsedReim[i][0];
@@ -451,11 +466,11 @@ function addReimbursementsToTablebyId() {
           rvCell.innerHTML = parsedReim[i][8];
         }
 
-        let anchorCell = document.createElement("a")
+        let anchorCell = document.createElement("a");
         let imgCell = document.createElement("td");
-    
-        anchorCell.setAttribute('href', parsedReim[i][9])
-        anchorCell.innerText = "Reciept"
+
+        anchorCell.setAttribute("href", parsedReim[i][9]);
+        anchorCell.innerText = "Reciept";
         imgCell.appendChild(anchorCell);
 
         row.appendChild(idCell);
@@ -475,3 +490,15 @@ function addReimbursementsToTablebyId() {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+

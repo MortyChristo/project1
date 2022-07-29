@@ -1,7 +1,7 @@
 Feature: Manager
 
 
-  Scenario Outline:
+  Scenario Outline: Table sort features                                                14 of 14 test passed
     Given that I am at the manager page
     When I select one of the dropdowns <dropdown>
     And I choose one of the select options <select>

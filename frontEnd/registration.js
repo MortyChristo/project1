@@ -17,6 +17,7 @@ function loginstatus(){
     else if (localStorage.getItem("employee_type") == 1){
      window.location.href = '/frontEnd/manager.html'
     }
+    
     else {
       sessionStorage.clear() 
      }
@@ -24,18 +25,16 @@ function loginstatus(){
 
 
 
-registrationSubmitButton.addEventListener('click', async () => {
-   
+registrationSubmitButton.addEventListener('click', registerUser)
+async function registerUser(event) {
+   event.preventDefault();
     let res = await fetch(`http://127.0.0.1:8080/login/register`, {
-            
-            'method': 'POST',
-            'credentials':'include',
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':'*'
-                
+            method:'POST',
+            credentials:'include',
+            headers: {
+                'Content-Type': 'application/json',                
             },
-            'body': JSON.stringify({
+            body: JSON.stringify({
                 "employee_id":employeeIdInput.value,
                 "username": usernameInput.value,
                 "employee_password": passwordInput.value,
@@ -45,23 +44,25 @@ registrationSubmitButton.addEventListener('click', async () => {
             }),
         })
     
-    localStorage.clear
-    let data = await res.json();
-
-
-    if (res.status == 200) {
-        alert("Account successfully created")
-        window.location.href="/frontEnd/login/html"
+        console.log(res)
+        localStorage.clear
+        localStorage.setItem("Registered", true)
+        let data = await res.json();
+        console.log(data.stringify)
+    
+        if (res.status == 200) {
+            alert("Account successfully created")
+         //window.location.href="/frontEnd/login/html"
     } 
 
-    else if(res.status == 400) {
+        else if(res.status == 400) {
         
-        let errorMessages = data.messages;
-        let errorString = ""
-        for (i=0; i < errorMessages.length; i++) {
+            let errorMessages = data.messages;
+            let errorString = ""
+            for (i=0; i < errorMessages.length; i++) {
             errorString = errorString + errorMessages[i] +"\n"  
-        }
-        window.alert(errorString)
+            }
+            window.alert(errorString)
     }
     
-});
+};

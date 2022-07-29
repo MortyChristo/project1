@@ -52,17 +52,16 @@ def login(username, password):
 def register_employee():
     session.clear()
     request_body_dict = request.get_json()
-    if request_body_dict is not None:
-        employee_id = request_body_dict['employee_id']
-        username = request_body_dict['username']
-        password = request_body_dict['employee_password']
-        first_name = request_body_dict['first_name']
-        last_name = request_body_dict['last_name']
-        email_address = request_body_dict['email_address']
-
+    employee_id = request_body_dict['employee_id']
+    username = request_body_dict['username']
+    password = request_body_dict['employee_password']
+    first_name = request_body_dict['first_name']
+    last_name = request_body_dict['last_name']
+    email_address = request_body_dict['email_address']
     try:
 
-        added_user = employee_service.add_employee(Employee(employee_id, username, password, first_name, last_name, '0', email_address))
+        added_user = employee_service.add_employee(employee_id, username, password, first_name, last_name, '0', email_address)
+
         return added_user, 200
 
     except RegistrationError as e:

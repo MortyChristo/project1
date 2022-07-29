@@ -70,9 +70,11 @@ async function loginNow(){
               .then((data) => {
                 localStorage.setItem("reimbursement", JSON.stringify(data.reimbursement));
                 localStorage.setItem("length", data.reimbursement.length);
-                window.location.href = "/frontEnd/manager.html";
+               
+                  window.location.href = "/frontEnd/manager.html";
+                  
+                })
 
-              })
               .catch((err) => {
                 console.log(err);
               });

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', loginstatus)
 
 function logout() {
     fetch("http://127.0.0.1:8080/logout", {
-      method: "POST",
+      'method': 'POST',
     })
       .then((res) => {
         data = res.status;

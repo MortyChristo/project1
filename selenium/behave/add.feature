@@ -1,6 +1,6 @@
 Feature: add
 
-  Scenario: Valid Reimbursement
+  Scenario: Valid Reimbursement                                                    4 of 4 passed test
       Given that I am at the add page
       When select a radio button
       And enter a valid amount

@@ -1,7 +1,7 @@
 Feature: Index
 
 
-  Scenario Outline: Clicking Login and Registration buttons
+  Scenario Outline: Clicking Login and Registration buttons                           6 of 6 passed
     Given that I am at the login page
     When I click on button <bn>
     And I am logged in as <li>
